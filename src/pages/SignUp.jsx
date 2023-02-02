@@ -84,7 +84,7 @@ const SignUp = () => {
         >
           <img src={Logo} alt="Lab Archive Logo" width="60%" />
           <Typography variant="h6" color="primary">
-            Lab Archive
+            MyLabDocs
           </Typography>
         </div>
 

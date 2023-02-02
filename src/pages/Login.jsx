@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Button, IconButton, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  IconButton,
+  Paper,
+  Typography,
+} from "@mui/material";
 import Logo from "../assets/Logo.svg";
 import { Link } from "react-router-dom";
 
@@ -16,16 +22,16 @@ const Login = () => {
   };
 
   return (
-    <div
-      style={{
+    <Container
+      sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         height: "90vh",
       }}
     >
-      <div
-        style={{
+      <Paper
+        sx={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -33,8 +39,8 @@ const Login = () => {
           gap: "2rem",
           width: "22rem",
           height: "34rem",
-          boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
         }}
+        elevation={3}
       >
         <div
           style={{
@@ -47,7 +53,7 @@ const Login = () => {
         >
           <img src={Logo} alt="Lab Archive Logo" width="60%" />
           <Typography variant="h6" color="primary">
-            Lab Archive
+            MyLabDocs
           </Typography>
         </div>
         <form
@@ -136,8 +142,8 @@ const Login = () => {
             </Link>
           </Typography>
         </div>
-      </div>
-    </div>
+      </Paper>
+    </Container>
   );
 };
 
