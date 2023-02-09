@@ -1,1 +1,84 @@
 @import "./general.scss";
+
+// Headbar
+.header {
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+
+  &__content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    height: 100%;
+
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    h2 {
+      color: $color-primary;
+    }
+  }
+
+  &__user-avatar {
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    border-radius: 4rem;
+    background-color: $color-primary;
+    font-size: 1.2rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__seperator {
+    border: 1px solid $color-primary;
+    width: 90%;
+    color: $color-primary;
+  }
+
+  &__exam-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 32%;
+  }
+}
+
+// Navbar
+.navbar {
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 1px solid $color-primary;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: $color-primary;
+  font-size: 1.8rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

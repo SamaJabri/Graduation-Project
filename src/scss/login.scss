@@ -39,32 +39,7 @@
     width: 92%;
 
     &__field {
-      border: 1px solid $color-primary;
-      border-radius: 0.2rem;
-      height: 3.6rem;
       width: 90%;
-      padding: 0.5rem 1rem;
-      font-size: 1.2rem;
-      outline: none;
-
-      &::placeholder {
-        color: $color-primary;
-      }
-    }
-
-    div {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      width: 90%;
-
-      input {
-        width: 100%;
-      }
-
-      p {
-        margin-top: 1rem;
-      }
     }
 
     &__button {
@@ -73,10 +48,32 @@
       border-radius: 0.2rem;
       padding: 0.8rem 1rem;
       font-size: 1.3rem;
-      font-weight: bold;
       width: 50%;
       color: white;
       margin-top: 3rem;
+      transition: all 0.3s;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:disabled {
+        background-color: $color-primary-disabled;
+        color: $color-text-disabled;
+      }
+    }
+  }
+
+  &__password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    p {
+      text-align: left;
+      width: 89%;
+      margin-top: 1rem;
     }
   }
 

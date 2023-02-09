@@ -1,0 +1,22 @@
+[
+  {
+    "name": "mcv",
+    "about": [
+      "MCV stands for mean corpuscular volume. An MCV blood test measures the average size of your red blood cells. Red blood cells carry oxygen from your lungs to every cell in your body. Your cells need oxygen to grow, reproduce, and stay healthy. If your red blood cells are too small or too large, it could be a sign of a blood disorder such as anemia, a lack of certain vitamins, or other medical conditions"
+    ],
+    "low": [
+      "Certain types of anemia, including iron-deficiency anemia, the most common type.",
+      "Thalassemia, an uncommon genetic condition"
+    ],
+    "high": [
+      {
+        "Pernicious anemia, which may be caused by:": [
+          "A lack of vitamin B12",
+          "A disease that affects your body's ability to use vitamin B12, such as certain autoimmune diseases, celiac disease, or Crohn's disease"
+        ]
+      },
+      "Anemia caused by a lac of folic acid",
+      "Liver disease"
+    ]
+  }
+]

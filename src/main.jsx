@@ -18,19 +18,12 @@ import { createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
   palette: {
-    mode: "dark",
+    mode: "light",
     primary: {
-      main: "#683636",
-    },
-    secondary: {
-      main: "#402222",
-    },
-    text: {
-      primary: "#683636",
+      main: "#218d87",
     },
   },
 });
-/*#CF7C7C*/
 
 const router = createBrowserRouter([
   {
