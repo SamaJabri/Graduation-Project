@@ -1,72 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
 import ExaminationBubble from "../components/examination/ExaminationBubble";
 
 import examinations from "../store/examination/examinations";
 
 const Home = () => {
-  /*   const data = [
-    { date: "Jan, 2022", result: 5.5 },
-    { date: "July, 2022", result: 5.0 },
-    { date: "Jan, 2023", result: 5.3 },
-    { date: "Jan, 2023", result: 5.3 },
-  ];
-
-  const data2 = [
-    { date: "Jan, 2022", result: 8.5 },
-    { date: "July, 2022", result: 7.9 },
-    { date: "Jan, 2023", result: 7.8 },
-    { date: "Jan, 2023", result: 8.3 },
-  ];
-
-  const data3 = [
-    { date: "Jan, 2022", result: 10.5 },
-    { date: "July, 2022", result: 10.0 },
-    { date: "Jan, 2023", result: 11.3 },
-    { date: "Jan, 2023", result: 11.3 },
-  ]; */
-
-  // graphData
-  const getExaminationData = (examinationName) =>
-    examinations
-      .filter(
-        ({ date, name }) =>
-          name.toUpperCase() === examinationName && { date, name }
-      )
-      .map(({ date, result }) => ({ date, result }));
-
-  // Create examination variables
-  let d = examinations.map(
-    (examination) =>
-      (window[examination.name] = getExaminationData(examination.name))
+  // Remove duplicate examinations for home bubbles view
+  const INIT_UNIQUE_EXAMINATIONS = Array.from(
+    new Set(examinations.map((examination) => examination.name))
+  ).map((name) =>
+    examinations.find((examination) => examination.name === name)
   );
 
-  //d = Array.from(new Set(d.map(JSON.stringify)), JSON.parse);
+  const [uniqueExaminations, setUniqueExamination] = useState(
+    INIT_UNIQUE_EXAMINATIONS
+  );
 
-  // [{mcv}, {mcv}, {mchc}, {rbc}, {plt}, {rdw}]
-  // [[{mcv}], [{mchc}], [{rbc}], [{plt}], [{rdw}]]
+  const [viewType, setViewType] = useState("All");
 
-  console.log(d);
+  // Get the data related to a certain examination
+  const getExaminationData = (examinationName) =>
+    examinations.filter(
+      ({ date, name }) =>
+        name.toUpperCase() === examinationName && { date, name }
+    );
 
-  /*   const MCV = getExaminationData("MCV");
-  const mch = getExaminationData("MCH");
-  const mchc = getExaminationData("MCHC");
-  const plt = getExaminationData("PLT");
-  const wbc = getExaminationData("WBC");
-  const rdw = getExaminationData("RDW");
-  const rbc = getExaminationData("RBC"); */
+  // Filter the important data for graph view (date & name)
+  const graphData = (examinationName) =>
+    getExaminationData(examinationName).map(({ date, result }) => ({
+      date,
+      result,
+    }));
+
+  // Create examination variables for graph use
+  let examinationVariables = examinations.map(
+    (examination) => (window[examination.name] = graphData(examination.name))
+  );
+
+  const showAllResults = () => {
+    setViewType("All");
+    setUniqueExamination(INIT_UNIQUE_EXAMINATIONS);
+  };
+
+  const showNormalResults = () => {
+    setViewType("Normal");
+    setUniqueExamination(() =>
+      INIT_UNIQUE_EXAMINATIONS.filter(
+        ({ result, starting_normal_range, ending_normal_range }) =>
+          result >= starting_normal_range && result <= ending_normal_range
+      )
+    );
+  };
+
+  const showAbnormalResults = () => {
+    setViewType("Abnormal");
+    setUniqueExamination(() =>
+      INIT_UNIQUE_EXAMINATIONS.filter(
+        ({ result, starting_normal_range, ending_normal_range }) =>
+          result < starting_normal_range || result > ending_normal_range
+      )
+    );
+  };
 
   return (
     <div className="home">
       <div className="home__header">
         <h2>Your Health</h2>
         <div className="home__filters">
-          <button>All</button>
-          <button>Normal</button>
-          <button>Abnormal</button>
+          <button
+            id={viewType === "All" && "active-button"}
+            onClick={showAllResults}
+          >
+            All
+          </button>
+          <button
+            id={viewType === "Normal" && "active-button"}
+            onClick={showNormalResults}
+          >
+            Normal
+          </button>
+          <button
+            id={viewType === "Abnormal" && "active-button"}
+            onClick={showAbnormalResults}
+          >
+            Abnormal
+          </button>
         </div>
       </div>
       <div className="home__exams">
-        {examinations.map(({ id, name }) => (
+        {uniqueExaminations.map(({ id, name }) => (
           <ExaminationBubble key={id} data={window[name]} name={name} id={id} />
         ))}
       </div>
