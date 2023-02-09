@@ -2,7 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import AddTest from "./pages/AddTest";
+import Examination from "./pages/Examination";
+import Profile from "./pages/Profile";
+import Tests from "./pages/Tests";
+import Loading from "./pages/Loading";
+import NotFound from "./pages/NotFound";
+import Login2 from "./pages/Login2";
 import SignUp from "./pages/SignUp";
 //import "./index.css";
 
@@ -14,14 +20,10 @@ const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#683636",
-    },
-    secondary: {
-      main: "#402222",
+      main: "#218d87",
     },
   },
 });
-/*#CF7C7C*/
 
 const router = createBrowserRouter([
   {
@@ -32,11 +34,27 @@ const router = createBrowserRouter([
         path: "home",
         element: <Home />,
       },
+      {
+        path: "add",
+        element: <AddTest />,
+      },
+      {
+        path: "profile/:id",
+        element: <Profile />,
+      },
+      {
+        path: "tests",
+        element: <Tests />,
+      },
+      {
+        path: "examination/:id",
+        element: <Examination />,
+      },
     ],
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <Login2 />,
   },
   {
     path: "/signup",

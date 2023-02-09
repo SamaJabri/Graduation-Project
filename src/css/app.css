@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=M+PLUS+Rounded+1c:wght@400;500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.ternary {
+  color: #deb992;
+}
+
+.warning-message {
+  color: #8d2121;
+  margin-top: -1rem;
+  margin-bottom: 0.5rem;
+  background-color: rgba(141, 33, 33, 0.2);
+  border-radius: 0.2rem;
+  border: none;
+  padding: 0.8rem 1.3rem;
+  text-align: center;
+}
+
+#active-button {
+  padding: 0.3rem 0.9rem;
+  color: white;
+  background-color: #218d87;
+  border: 1px solid white;
+  border-radius: 0.14rem;
+  outline: none;
+}
+#active-button:hover {
+  cursor: pointer;
+}
+
+.header {
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+}
+.header__content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  height: 100%;
+}
+.header__content img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.header__content h2 {
+  color: #218d87;
+}
+.header__user-avatar {
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 4rem;
+  background-color: #218d87;
+  font-size: 1.2rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header__seperator {
+  border: 1px solid #218d87;
+  width: 90%;
+  color: #218d87;
+}
+.header__exam-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 32%;
+}
+
+.navbar {
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 1px solid #218d87;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #218d87;
+  font-size: 1.8rem;
+}
+.icon:hover {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=app.css.map */
