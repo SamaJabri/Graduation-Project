@@ -1,9 +1,9 @@
-import { create } from "zustand";
+import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 import INIT_EXAMINATIONS from "./examinations";
 
-const examinationStore = (set) => ({
+const examinationStore = (set, get) => ({
   examinations: INIT_EXAMINATIONS,
 
   addExamination: (examination) => {
@@ -26,7 +26,7 @@ const examinationStore = (set) => ({
         examination.id === examId
           ? {
               ...examination,
-              isFavorite,
+              isFavorite: isFavorite,
             }
           : examination
       ),
@@ -37,6 +37,7 @@ const useExaminationStore = create(
   devtools(
     persist(examinationStore, {
       name: "examinations",
+      getStorage: () => sessionStorage,
     })
   )
 );

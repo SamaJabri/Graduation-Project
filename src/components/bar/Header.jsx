@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import Logo from "../../assets/Logo.svg";
 
@@ -8,6 +8,8 @@ import useExaminationStore from "../../store/examination/examination-store.js";
 import Icon from "../Icon";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   const currentUser = {
     id: 0,
     username: "Sama",
@@ -22,7 +24,7 @@ const Header = () => {
   const [isInExamPage, setIsInExamPage] = useState(id ? true : false);
 
   const [examinationName, setExaminationName] = useState("");
-  const [isExamFavorite, setIsExamFavorite] = useState(null);
+  const [isExamFavorite, setIsExamFavorite] = useState();
 
   // Get exam name, check if it's in favorites, and update it
   const examinations = useExaminationStore((state) => state.examinations);
@@ -38,13 +40,14 @@ const Header = () => {
         (examination) => examination.id === Number(id)
       );
 
+      setIsExamFavorite(isFavorite);
       setExaminationName(name);
 
       updateExamination(id, isExamFavorite);
     } else {
       setIsInExamPage(false);
     }
-  }, [isExamFavorite, isInExamPage, id]);
+  }, [isInExamPage, id]);
 
   const toggleIsFavorite = (e) => {
     e.preventDefault();
@@ -52,7 +55,12 @@ const Header = () => {
     setIsExamFavorite((isExamFavorite) => !isExamFavorite);
   };
 
-  //<Icon iconName="AiFillHeart" />;
+  const goToPreviousPage = (e) => {
+    e.preventDefault();
+
+    navigate(-1);
+  };
+
   return (
     <div className="header">
       <div
@@ -63,7 +71,7 @@ const Header = () => {
         {isInExamPage ? (
           <>
             <div className="header__exam-name">
-              <Icon iconName="AiOutlineLeft" link="/home" />
+              <Icon iconName="AiOutlineLeft" onClick={goToPreviousPage} />
               <h2>{examinationName}</h2>
             </div>
             {isExamFavorite ? (

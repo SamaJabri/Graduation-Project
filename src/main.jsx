@@ -4,6 +4,7 @@ import App from "./App";
 import Home from "./pages/Home";
 import AddTest from "./pages/AddTest";
 import Examination from "./pages/Examination";
+import Favorites from "./pages/Favorites";
 import Profile from "./pages/Profile";
 import Tests from "./pages/Tests";
 import Loading from "./pages/Loading";
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "examination/:id",
         element: <Examination />,
+      },
+      {
+        path: "favorites",
+        element: <Favorites />,
       },
     ],
   },
