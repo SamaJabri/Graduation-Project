@@ -120,18 +120,61 @@ a {
 .profile__info p span {
   font-weight: normal;
 }
-.profile__calculate-bmi {
+.profile__info-edit {
+  display: flex;
+  justify-content: space-between;
+}
+.profile__edit {
+  display: flex;
+  flex-direction: column;
+}
+.profile__edit label {
+  color: #218d87;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.profile__edit input,
+.profile__edit select {
+  color: #218d87;
+  background-color: white;
+  font-size: 1.2rem;
+  padding: 0.4rem 0.2rem;
+  border: 1px solid #218d87;
+  border-radius: 0.2rem;
+  margin-bottom: 0.8rem;
+  margin-top: 0.2rem;
+  outline: none;
+}
+.profile__edit input::-webkit-outer-spin-button, .profile__edit input::-webkit-inner-spin-button,
+.profile__edit select::-webkit-outer-spin-button,
+.profile__edit select::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.profile__edit input[type=number],
+.profile__edit select[type=number] {
+  -moz-appearance: textfield;
+}
+.profile__edit input[type=submit],
+.profile__edit select[type=submit] {
   padding: 0.3rem 0.9rem;
   color: white;
   background-color: #218d87;
   border: 1px solid white;
   border-radius: 0.14rem;
   outline: none;
-  font-size: 1.3rem;
-  height: 3rem;
+  margin-top: 1.4rem;
+  height: 2.7rem;
 }
-.profile__calculate-bmi:hover {
+.profile__edit input[type=submit]:hover,
+.profile__edit select[type=submit]:hover {
   cursor: pointer;
+}
+.profile__edit input option:hover,
+.profile__edit select option:hover {
+  cursor: pointer;
+  background-color: #218d87;
+  color: white;
 }
 
 /*# sourceMappingURL=profile.css.map */
