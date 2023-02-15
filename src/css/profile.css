@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=M+PLUS+Rounded+1c:wght@400;500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.ternary {
+  color: #deb992;
+}
+
+.warning-message {
+  color: #8d2121;
+  margin-top: -1rem;
+  margin-bottom: 0.5rem;
+  background-color: rgba(141, 33, 33, 0.2);
+  border-radius: 0.2rem;
+  border: none;
+  padding: 0.8rem 1.3rem;
+  text-align: center;
+}
+
+#active-button {
+  padding: 0.3rem 0.9rem;
+  color: white;
+  background-color: #218d87;
+  border: 1px solid white;
+  border-radius: 0.14rem;
+  outline: none;
+}
+#active-button:hover {
+  cursor: pointer;
+}
+
+.profile {
+  padding: 1rem 0;
+  margin: 0 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.profile__image {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+.profile__image-options {
+  display: flex;
+  gap: 1rem;
+}
+.profile__image-options input {
+  display: none;
+}
+.profile__image-options button {
+  font-size: 1.3rem;
+  height: 2.5rem;
+}
+.profile__image-options button:first-child {
+  padding: 0.3rem 0.9rem;
+  color: white;
+  background-color: #218d87;
+  border: 1px solid white;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.profile__image-options button:first-child:hover {
+  cursor: pointer;
+}
+.profile__image-options button:last-child {
+  padding: 0.3rem 0.9rem;
+  color: #218d87;
+  background-color: white;
+  border: 1px solid #218d87;
+  border-radius: 0.14rem;
+  outline: none;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.profile__image-options button:last-child:hover {
+  cursor: pointer;
+}
+.profile__image img {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 5rem;
+}
+.profile__user-avatar {
+  width: 8rem;
+  height: 8rem;
+  border: none;
+  border-radius: 14rem;
+  background-color: #218d87;
+  font-size: 2.3529411765rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.profile__user-avatar:hover {
+  cursor: pointer;
+}
+.profile__info h2 {
+  color: #0e3b39;
+  margin-bottom: 1.2rem;
+}
+.profile__info p {
+  color: #218d87;
+  font-weight: bold;
+  font-size: large;
+  margin-bottom: 0.7rem;
+}
+.profile__info p span {
+  font-weight: normal;
+}
+.profile__calculate-bmi {
+  padding: 0.3rem 0.9rem;
+  color: white;
+  background-color: #218d87;
+  border: 1px solid white;
+  border-radius: 0.14rem;
+  outline: none;
+  font-size: 1.3rem;
+  height: 3rem;
+}
+.profile__calculate-bmi:hover {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=profile.css.map */

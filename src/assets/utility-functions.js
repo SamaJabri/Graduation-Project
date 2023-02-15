@@ -24,9 +24,30 @@ let examinationVariables = (examinations) =>
       (window[examination.name] = graphData(examinations, examination.name))
   );
 
+const saveToCloudinary = (file, folderName, extraTasks) => {
+  alert("Please Wait");
+
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", "xts9tly0");
+  formData.append("folder", folderName);
+
+  fetch("https://api.cloudinary.com/v1_1/df9xmfkp1/image/upload", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Image uploaded successfully: ", data.url);
+      extraTasks();
+    })
+    .catch((error) => alert("Sorry, an error occured:", error));
+};
+
 export {
   INIT_UNIQUE_EXAMINATIONS,
   getExaminationData,
   graphData,
   examinationVariables,
+  saveToCloudinary,
 };

@@ -1,1 +1,76 @@
 @import "./general.scss";
+
+.profile {
+  padding: 1rem 0;
+  margin: 0 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &__image {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+
+    &-options {
+      display: flex;
+      gap: 1rem;
+
+      input {
+        display: none;
+      }
+
+      button {
+        font-size: 1.3rem;
+        height: 2.5rem;
+
+        &:first-child {
+          @include button($color-primary, white);
+        }
+
+        &:last-child {
+          @include button(white, $color-primary);
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+      }
+    }
+
+    img {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 5rem;
+    }
+  }
+
+  &__user-avatar {
+    @include userAvatar(8rem, 8rem);
+  }
+
+  &__info {
+    h2 {
+      color: $color-secondary;
+      margin-bottom: 1.2rem;
+    }
+
+    p {
+      color: $color-primary;
+      font-weight: bold;
+      font-size: large;
+      margin-bottom: 0.7rem;
+
+      span {
+        font-weight: normal;
+      }
+    }
+  }
+
+  &__calculate-bmi {
+    @include button($color-primary, white);
+
+    font-size: 1.3rem;
+    height: 3rem;
+  }
+}
