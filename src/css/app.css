@@ -67,13 +67,22 @@ a {
   width: 3rem;
   height: 3rem;
   border: none;
-  border-radius: 4rem;
+  border-radius: 14rem;
   background-color: #218d87;
-  font-size: 1.2rem;
+  font-size: 0.8823529412rem;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+.header__user-avatar:hover {
+  cursor: pointer;
+}
+.header__user-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
 }
 .header__seperator {
   border: 1px solid #218d87;
@@ -85,6 +94,35 @@ a {
   justify-content: space-between;
   align-items: center;
   width: 5.7rem;
+}
+
+.user-setting {
+  border: 1px solid #218d87;
+  border-radius: 0.2rem;
+  background-color: white;
+  padding: 0.2rem 1rem;
+  width: 14rem;
+  height: 8rem;
+  position: absolute;
+  top: 3.2rem;
+  right: 0;
+}
+.user-setting button {
+  padding: 0.3rem 0.9rem;
+  color: #218d87;
+  background-color: white;
+  border: 1px solid #218d87;
+  border-radius: 0.14rem;
+  outline: none;
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid #218d87;
+  border-radius: 0;
+  font-size: 1.1rem;
+  padding: 0.61rem 0;
+}
+.user-setting button:hover {
+  cursor: pointer;
 }
 
 .navbar {

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { saveToCloudinary } from "../assets/utility-functions";
 import Icon from "../components/Icon";
 
 const AddTest = () => {
@@ -9,7 +10,7 @@ const AddTest = () => {
 
   const [isItemInDragArea, setIsItemInDragArea] = useState(false);
 
-  // Helping function that sets images & previewURLs data
+  // Helping function that sets imagesData data
   const handleImage = (imageFile) => {
     const previewURLObject = URL.createObjectURL(imageFile);
 
@@ -86,6 +87,18 @@ const AddTest = () => {
     );
   };
 
+  // When choosing to save the image as a lab test result
+  // Upload to Cloudinary database
+  const saveImage = (e, image) => {
+    e.preventDefault();
+
+    saveToCloudinary(image, "Lab Test Results", () =>
+      setImagesData(
+        imagesData.filter((imageData) => imageData.image.name !== image.name)
+      )
+    );
+  };
+
   return (
     <div className="add-test">
       <p>
@@ -101,21 +114,21 @@ const AddTest = () => {
         onDrop={handleOnDrop}
       >
         {imagesData.length > 0
-          ? imagesData.map((imageData, index) => {
-              console.log(imageData);
-              return (
-                <div key={index} className="add-test__image">
-                  <img src={imageData.previewURL} />
-                  <div className="add-test__image-options">
-                    <Icon iconName="AiOutlineCheck" />
-                    <Icon
-                      iconName="AiOutlineClose"
-                      onClick={(e) => handleDiscard(e, imageData.image.name)}
-                    />
-                  </div>
+          ? imagesData.map((imageData, index) => (
+              <div key={index} className="add-test__image">
+                <img src={imageData.previewURL} />
+                <div className="add-test__image-options">
+                  <Icon
+                    iconName="AiOutlineCheck"
+                    onClick={(e) => saveImage(e, imageData.image)}
+                  />
+                  <Icon
+                    iconName="AiOutlineClose"
+                    onClick={(e) => handleDiscard(e, imageData.image.name)}
+                  />
                 </div>
-              );
-            })
+              </div>
+            ))
           : "Drop Image Here"}
       </div>
 
@@ -127,6 +140,7 @@ const AddTest = () => {
         </button>
         <input type="file" ref={uploadImage} onChange={handleUpload} />
       </div>
+      <p>Pdf extensions are supported</p>
     </div>
   );
 };

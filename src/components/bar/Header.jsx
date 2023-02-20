@@ -4,24 +4,20 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Logo from "../../assets/Logo.svg";
 
 import useExaminationStore from "../../store/examination/examination-store.js";
+import Avatar from "../Avatar";
 
 import Icon from "../Icon";
 
 const Header = () => {
   const navigate = useNavigate();
 
-  const currentUser = {
-    id: 0,
-    username: "Sama",
-    firstName: "Sama",
-    lastName: "Jabri",
-    email: "sama.jabri@outlook.com",
-    password: "Sama",
-  };
-
   const { id } = useParams();
 
-  const [isInExamPage, setIsInExamPage] = useState(id ? true : false);
+  const pagePath = window.location.pathname.split("/")[1];
+
+  const [isInExamPage, setIsInExamPage] = useState(
+    pagePath === "examination" ? true : false
+  );
 
   const [examinationName, setExaminationName] = useState("");
   const [isExamFavorite, setIsExamFavorite] = useState();
@@ -33,7 +29,7 @@ const Header = () => {
   );
 
   useEffect(() => {
-    if (id) {
+    if (pagePath === "examination") {
       setIsInExamPage(true);
 
       const [{ name, isFavorite }] = examinations.filter(
@@ -86,9 +82,7 @@ const Header = () => {
               <img src={Logo} alt="Logo" />
             </Link>
 
-            <div className="header__user-avatar">
-              <p>{currentUser.firstName[0] + currentUser.lastName[0]}</p>
-            </div>
+            <Avatar place="header" />
           </>
         )}
       </div>
