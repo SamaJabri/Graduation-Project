@@ -31,7 +31,7 @@ const Avatar = (props) => {
 
     navigate("/login");
   };
-  console.log(currentPatient);
+
   return (
     <div className={`${props.place}__user-avatar`} onClick={toggleUserSettings}>
       {currentPatient.img_src ? (

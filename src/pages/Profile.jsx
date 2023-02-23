@@ -113,23 +113,33 @@ const Profile = () => {
           </form>
         ) : (
           <>
-            <p>
-              First Name: <span>{currentPatient.name}</span>
+            <p title="Name & Surname">
+              <Icon iconName="AiOutlineUser" />
+              <span>
+                {currentPatient.name} {currentPatient.surname}
+              </span>
             </p>
-            <p>
-              Last Name: <span>{currentPatient.surname}</span>
+            <p title="Gender">
+              <Icon
+                iconName={
+                  currentPatient.gender === "m"
+                    ? "AiOutlineMan"
+                    : "AiOutlineWoman"
+                }
+              />
+              <span>{currentPatient.gender || "-"}</span>
             </p>
-            <p>
-              Gender: <span>{currentPatient.gender || "-"}</span>
+            <p title="Age">
+              <Icon iconName="AiOutlineUsergroupAdd" />
+              <span>{currentPatient.age || "-"}</span>
             </p>
-            <p>
-              Age: <span>{currentPatient.age || "-"}</span>
+            <p title="Weight">
+              <Icon iconName="GiWeight" />
+              <span>{currentPatient.weight || "-"}</span>
             </p>
-            <p>
-              Weight: <span>{currentPatient.weight || "-"}</span>
-            </p>
-            <p>
-              Height: <span>{currentPatient.height || "-"}</span>
+            <p title="Height">
+              <Icon iconName="AiOutlineColumnHeight" />
+              <span>{currentPatient.height || "-"}</span>
             </p>
             <p>
               BMI:{" "}

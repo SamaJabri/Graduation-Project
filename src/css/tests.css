@@ -59,6 +59,7 @@ a {
   margin-bottom: 0.8rem;
   margin-top: 0.2rem;
   outline: none;
+  width: 100%;
 }
 .labs__filter input::-webkit-outer-spin-button, .labs__filter input::-webkit-inner-spin-button {
   -webkit-appearance: none;
