@@ -84,25 +84,7 @@
 
     input,
     select {
-      color: $color-primary;
-      background-color: white;
-      font-size: 1.2rem;
-      padding: 0.4rem 0.2rem;
-      border: 1px solid $color-primary;
-      border-radius: 0.2rem;
-      margin-bottom: 0.8rem;
-      margin-top: 0.2rem;
-      outline: none;
-
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-
-      &[type="number"] {
-        -moz-appearance: textfield;
-      }
+      @include input();
 
       &[type="submit"] {
         @include button($color-primary, white);
