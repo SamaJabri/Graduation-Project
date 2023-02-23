@@ -5,6 +5,7 @@ import Avatar from "../components/Avatar";
 
 import { saveToCloudinary } from "../assets/utility-functions";
 import Icon from "../components/Icon";
+import usePatientsStore from "../store/patient/patients-store";
 
 const Profile = () => {
   const { id } = useParams();
@@ -13,14 +14,7 @@ const Profile = () => {
   const [isBeingEdited, setIsBeingEdited] = useState(false);
   const [userAvatar, setUserAvatar] = useState({ image: null, preview: "" });
 
-  const currentUser = {
-    id: 0,
-    username: "Sama",
-    firstName: "Sama",
-    lastName: "Jabri",
-    email: "sama.jabri@outlook.com",
-    password: "Sama",
-  };
+  const currentPatient = usePatientsStore((state) => state.currentPatient);
 
   const toggleEdit = (e) => setIsBeingEdited((isBeingEdited) => !isBeingEdited);
 
@@ -73,74 +67,75 @@ const Profile = () => {
 
         {isBeingEdited ? (
           <form className="profile__edit" onSubmit={handleUserInfoUpdate}>
-            <label for="firstName">First Name</label>{" "}
+            <label htmlFor="firstName">First Name</label>{" "}
             <input
               type="text"
               name="firstName"
               id="firstName"
-              defaultValue={currentUser.firstName}
+              defaultValue={currentPatient.name}
             />
-            <label for="lastName">Last Name</label>{" "}
+            <label htmlFor="lastName">Last Name</label>{" "}
             <input
               type="text"
               name="lastName"
               id="lastName"
-              defaultValue={currentUser.lastName}
+              defaultValue={currentPatient.surname}
             />
-            <label for="gender">Gender</label>{" "}
+            <label htmlFor="gender">Gender</label>{" "}
             <select id="gender" name="gender">
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
-            <label for="age">Age</label>{" "}
+            <label htmlFor="age">Age</label>{" "}
             <input
               type="number"
               name="age"
               id="age"
               min="0"
               max="200"
-              defaultValue={currentUser.age}
+              defaultValue={currentPatient.age}
             />
-            <label for="weight">Weight</label>{" "}
+            <label htmlFor="weight">Weight</label>{" "}
             <input
               type="number"
               name="weight"
               id="weight"
-              defaultValue={currentUser.weight}
+              defaultValue={currentPatient.weight}
             />
-            <label for="height">Height</label>{" "}
+            <label htmlFor="height">Height</label>{" "}
             <input
               type="number"
               name="height"
               id="height"
-              defaultValue={currentUser.height}
+              defaultValue={currentPatient.height}
             />
             <input type="submit" value="Save" />
           </form>
         ) : (
           <>
             <p>
-              First Name: <span>{currentUser.firstName}</span>
+              First Name: <span>{currentPatient.name}</span>
             </p>
             <p>
-              Last Name: <span>{currentUser.lastName}</span>
+              Last Name: <span>{currentPatient.surname}</span>
             </p>
             <p>
-              Gender: <span>{currentUser.gender || "-"}</span>
+              Gender: <span>{currentPatient.gender || "-"}</span>
             </p>
             <p>
-              Age: <span>{currentUser.age || "-"}</span>
+              Age: <span>{currentPatient.age || "-"}</span>
             </p>
             <p>
-              Weight: <span>{currentUser.weight || "-"}</span>
+              Weight: <span>{currentPatient.weight || "-"}</span>
             </p>
             <p>
-              Height: <span>{currentUser.height || "-"}</span>
+              Height: <span>{currentPatient.height || "-"}</span>
             </p>
             <p>
               BMI:{" "}
               <span>
-                {currentUser.weight / Math.pow(currentUser.height, 2) || "-"}
+                {currentPatient.weight / Math.pow(currentPatient.height, 2) ||
+                  "-"}
               </span>
             </p>
           </>

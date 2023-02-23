@@ -18,5 +18,45 @@
       "Anemia caused by a lac of folic acid",
       "Liver disease"
     ]
+  },
+  {
+    "name": "rbc",
+    "about": [
+      "A red blood cell (RBC) count measures the number of red blood cells, also known as erythrocytes, in your blood. Red blood cells carry oxygen from your lungs to every cell in your body. Your cells need oxygen to grow, reproduce, and stay healthy. An RBC count that is higher or lower than normal is often the first sign of an illness. So the test may allow you to get treatment even before you have symptoms."
+    ],
+    "low": [
+      "Anemia",
+      "Leukemia, a type of blood cancer",
+      "Malnutrition, a condition in which your body does not get the calories, vitamins, and/or minerals needed for good health",
+      "Multiple myeloma, a cancer of the bone marrow",
+      "Kidney failure"
+    ],
+    "high": [
+      "Dehydration",
+      "Heart disease",
+      "Polycythemia vera, a bone marrow disease that causes too many red blood cells to be made",
+      "Scarring of the lungs, often due to cigarette smoking",
+      "Lung disease",
+      "Kidney cancer"
+    ]
+  },
+  {
+    "name": "rdw",
+    "about": [
+      "A red cell distribution width (RDW) test measures the differences in the volume and size of your red blood cells (erythrocytes). Red blood cells carry oxygen from your lungs to every cell in your body. Your cells need oxygen to grow, make new cells, and stay healthy."
+    ],
+    "low": [
+      "Iron deficiency",
+      "Different types of anemia",
+      "Thalassemia",
+      "Sickle cell anemia"
+    ],
+    "high": [
+      "Chronic liver disease",
+      "Heart disease",
+      "Diabetes",
+      "Kidney disease",
+      "Cancer, especially colorectal cancer"
+    ]
   }
 ]

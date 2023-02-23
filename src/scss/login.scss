@@ -5,6 +5,10 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+
+  &--sign-up {
+    height: auto;
+  }
 }
 
 .login {
@@ -60,6 +64,10 @@
       &:disabled {
         background-color: $color-primary-disabled;
         color: $color-text-disabled;
+      }
+
+      &--sign-up {
+        margin-top: 1rem;
       }
     }
   }

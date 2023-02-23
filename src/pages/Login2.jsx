@@ -8,27 +8,11 @@ import Logo from "../assets/Logo.svg";
 
 import { Link, useNavigate } from "react-router-dom";
 
+import usePatientsStore from "../store/patient/patients-store";
+
 const Login2 = () => {
-  const users = [
-    {
-      id: 0,
-      username: "Sama",
-      email: "sama.jabri@outlook.com",
-      password: "Sama",
-    },
-    {
-      id: 1,
-      username: "Sama2",
-      email: "sama.jabri@gmail.com",
-      password: "Sama2",
-    },
-    {
-      id: 2,
-      username: "Sama3",
-      email: "sama.jabri@hotmail.com",
-      password: "Sama3",
-    },
-  ];
+  const patients = usePatientsStore((state) => state.patients);
+  const loginPatient = usePatientsStore((state) => state.loginPatient);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -38,17 +22,20 @@ const Login2 = () => {
 
   const navigate = useNavigate();
 
-  const doesUserExist = users.find((user) => user.username === username);
+  const doesPatientExist = patients.find(
+    (patient) => patient.username === username
+  );
 
-  const userData = users.find(
-    (user) => user.username === username && user.password === password
+  const patientsData = patients.find(
+    (patient) => patient.username === username && patient.password === password
   );
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (doesUserExist) {
-      if (userData) {
+    if (doesPatientExist) {
+      if (patientsData) {
+        loginPatient(patientsData.id);
         setWarningMessage("");
         navigate("/home");
       } else {

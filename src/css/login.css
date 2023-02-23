@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=M+PLUS+Rounded+1c:wght@400;500&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -24,11 +25,26 @@ a {
   text-align: center;
 }
 
+#active-button {
+  padding: 0.3rem 0.9rem;
+  color: white;
+  background-color: #218d87;
+  border: 1px solid white;
+  border-radius: 0.14rem;
+  outline: none;
+}
+#active-button:hover {
+  cursor: pointer;
+}
+
 .welcome {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+.welcome--sign-up {
+  height: auto;
 }
 
 .login {
@@ -80,6 +96,9 @@ a {
 .login__form__button:disabled {
   background-color: rgba(33, 141, 135, 0.12);
   color: rgba(0, 0, 0, 0.26);
+}
+.login__form__button--sign-up {
+  margin-top: 1rem;
 }
 .login__password {
   display: flex;

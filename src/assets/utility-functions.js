@@ -24,6 +24,7 @@ let examinationVariables = (examinations) =>
       (window[examination.name] = graphData(examinations, examination.name))
   );
 
+// Upload image to Cloudinary
 const saveToCloudinary = (file, folderName, extraTasks) => {
   alert("Please Wait");
 
