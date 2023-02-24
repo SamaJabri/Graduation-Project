@@ -15,6 +15,9 @@ const Profile = () => {
   const [userAvatar, setUserAvatar] = useState({ image: null, preview: "" });
 
   const currentPatient = usePatientsStore((state) => state.currentPatient);
+  const UpdatePatientInfo = usePatientsStore(
+    (state) => state.UpdatePatientInfo
+  );
 
   const toggleEdit = (e) => setIsBeingEdited((isBeingEdited) => !isBeingEdited);
 
@@ -35,6 +38,20 @@ const Profile = () => {
   // Handle the update of data --> Update store
   const handleUserInfoUpdate = (e) => {
     e.preventDefault();
+
+    const { name, surname, gender, age, weight, height } = e.currentTarget;
+
+    const updatedUser = {
+      name: name.value,
+      surname: surname.value,
+      gender: gender.value,
+      age: age.value,
+      weight: weight.value,
+      height: height.value,
+    };
+
+    UpdatePatientInfo(updatedUser);
+    toggleEdit(e);
   };
 
   return (
@@ -67,18 +84,18 @@ const Profile = () => {
 
         {isBeingEdited ? (
           <form className="profile__edit" onSubmit={handleUserInfoUpdate}>
-            <label htmlFor="firstName">First Name</label>{" "}
+            <label htmlFor="name">First Name</label>{" "}
             <input
               type="text"
-              name="firstName"
-              id="firstName"
+              name="name"
+              id="name"
               defaultValue={currentPatient.name}
             />
-            <label htmlFor="lastName">Last Name</label>{" "}
+            <label htmlFor="surname">Last Name</label>{" "}
             <input
               type="text"
-              name="lastName"
-              id="lastName"
+              name="surname"
+              id="surname"
               defaultValue={currentPatient.surname}
             />
             <label htmlFor="gender">Gender</label>{" "}
@@ -151,8 +168,6 @@ const Profile = () => {
           </>
         )}
       </div>
-      {/*       <button className="profile__calculate-bmi" onClick={calculateBMI}>Calculate My BMI</button>
-       */}{" "}
     </div>
   );
 };

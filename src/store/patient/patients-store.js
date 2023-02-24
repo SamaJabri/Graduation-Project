@@ -27,8 +27,12 @@ const usePatientsStore = create(
       // Update user info (newInfo is an object of the updated fields)
       UpdatePatientInfo: (newInfo) =>
         set((state) => ({
+          currentPatient: { ...state.currentPatient, ...newInfo },
+
           patients: state.patients.map((patient) =>
-            patient.id === currentPatient.id ? { ...patient, newInfo } : patient
+            patient.id === state.currentPatient.id
+              ? state.currentPatient
+              : patient
           ),
         })),
 
