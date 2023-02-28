@@ -105,3 +105,58 @@
     }
   }
 }
+
+.dark {
+  .profile {
+    &__image {
+      &-options {
+        button {
+          &:first-child {
+            @include button($color-secondary, white);
+          }
+
+          &:last-child {
+            @include button(white, $color-secondary);
+          }
+        }
+      }
+    }
+
+    &__user-avatar {
+      @include userAvatar(8rem, 8rem, white, $color-secondary);
+    }
+
+    &__info {
+      h2 {
+        color: white;
+      }
+
+      p {
+        color: white;
+      }
+    }
+
+    &__edit {
+      label {
+        color: white;
+      }
+
+      input,
+      select {
+        @include input($color-secondary);
+
+        &[type="submit"] {
+          @include button($color-secondary, white);
+        }
+
+        option {
+          &:hover {
+            cursor: pointer;
+            background-color: $color-primary;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

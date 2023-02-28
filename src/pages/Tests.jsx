@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import LabTest from "../components/LabTest";
 
+import useLaboratoryStore from "../store/laboratory/laboratory-store";
+import usePatientsStore from "../store/patient/patients-store";
+
 const Tests = () => {
   const labs = [
     {
@@ -62,6 +65,16 @@ const Tests = () => {
     },
   ];
 
+  const currentPatient = usePatientsStore((state) => state.currentPatient);
+
+  const myLabs = useLaboratoryStore((state) => state.myLabs);
+  const finzalizeMyLabData = useLaboratoryStore(
+    (state) => state.finzalizeMyLabData
+  );
+
+  finzalizeMyLabData(currentPatient.id);
+  //console.log(myLabs);
+
   const [labsList, setLabsList] = useState(labs);
 
   const [yearFilter, setYearFilter] = useState("");
@@ -83,6 +96,7 @@ const Tests = () => {
     const selectedYear = String(year);
 
     setYearFilter(year);
+    console.log(monthFilter);
 
     handleFilterAndSetList(selectedYear, selectedYear, monthFilter);
   };

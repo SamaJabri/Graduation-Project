@@ -37,6 +37,18 @@ a {
   cursor: pointer;
 }
 
+.dark #active-button {
+  padding: 0.3rem 0.9rem;
+  color: #0e3b39;
+  background-color: white;
+  border: 1px solid #0e3b39;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.dark #active-button:hover {
+  cursor: pointer;
+}
+
 .home {
   padding: 0.5rem 0;
   display: flex;
@@ -104,6 +116,29 @@ a {
 }
 .examination-bubble__graph:hover {
   cursor: pointer;
+}
+
+.dark .home__header h2 {
+  color: white;
+}
+.dark .home__filters button {
+  padding: 0.3rem 0.9rem;
+  color: white;
+  background-color: #0e3b39;
+  border: 1px solid white;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.dark .home__filters button:hover {
+  cursor: pointer;
+}
+.dark .examination-bubble {
+  border: 1px solid white;
+  background-color: #0e3b39;
+  color: white;
+}
+.dark .examination-bubble:hover {
+  box-shadow: rgba(255, 255, 255, 0.24) 0px 5px 8px;
 }
 
 /*# sourceMappingURL=home.css.map */

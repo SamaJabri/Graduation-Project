@@ -76,3 +76,20 @@
     }
   }
 }
+
+.dark {
+  .add-test {
+    color: white;
+
+    &__space {
+      color: white;
+      border-color: white;
+    }
+
+    &__options {
+      button {
+        @include button($color-secondary, white);
+      }
+    }
+  }
+}

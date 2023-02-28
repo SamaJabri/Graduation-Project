@@ -9,6 +9,8 @@ const usePatientsStore = create(
       currentPatient: null,
       isLoggedIn: false,
 
+      darkMode: false,
+
       // Login
       loginPatient: (patientId) =>
         set((state) => ({
@@ -42,6 +44,8 @@ const usePatientsStore = create(
           currentPatient: null,
           isLoggedIn: false,
         })),
+
+      toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
     }),
     {
       name: "patients",

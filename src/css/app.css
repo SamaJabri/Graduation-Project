@@ -37,6 +37,18 @@ a {
   cursor: pointer;
 }
 
+.dark #active-button {
+  padding: 0.3rem 0.9rem;
+  color: #0e3b39;
+  background-color: white;
+  border: 1px solid #0e3b39;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.dark #active-button:hover {
+  cursor: pointer;
+}
+
 .header {
   height: 4rem;
   width: 100%;
@@ -147,6 +159,43 @@ a {
 }
 .icon:hover {
   cursor: pointer;
+}
+
+.dark {
+  min-height: 90vh;
+  background-color: #0e3b39;
+}
+.dark .header {
+  background-color: #0e3b39;
+}
+.dark .header__user-avatar {
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 14rem;
+  background-color: white;
+  font-size: 0.8823529412rem;
+  color: #0e3b39;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.dark .header__user-avatar:hover {
+  cursor: pointer;
+}
+.dark .header__seperator {
+  border-color: white;
+}
+.dark .header__exam-name h2 {
+  color: white;
+}
+.dark .navbar {
+  background-color: #0e3b39;
+  border-top-color: white;
+}
+.dark .icon {
+  color: white;
 }
 
 /*# sourceMappingURL=app.css.map */

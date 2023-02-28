@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import Logo from "../../assets/Logo.svg";
+import LogoDarkMode from "../../assets/LogoDarkMode.svg";
 
 import useExaminationStore from "../../store/examination/examination-store.js";
+import usePatientsStore from "../../store/patient/patients-store";
 import Avatar from "../Avatar";
 
 import Icon from "../Icon";
@@ -23,10 +25,15 @@ const Header = () => {
   const [examinationName, setExaminationName] = useState("");
   const [isExamFavorite, setIsExamFavorite] = useState();
 
+  // Info needed for header in an exmaination page
   const examinations = useExaminationStore((state) => state.examinations);
   const toggleIsFavoriteExamination = useExaminationStore(
     (state) => state.toggleIsFavoriteExamination
   );
+
+  // Dark mode value and toggler
+  const darkMode = usePatientsStore((state) => state.darkMode);
+  const toggleDarkMode = usePatientsStore((state) => state.toggleDarkMode);
 
   useEffect(() => {
     if (pagePath.includes("examination")) {
@@ -82,9 +89,9 @@ const Header = () => {
         ) : (
           <>
             <Link to="/home">
-              <img src={Logo} alt="Logo" />
+              <img src={darkMode ? LogoDarkMode : Logo} alt="Logo" />
             </Link>
-
+            <button onClick={toggleDarkMode}>Dark</button>
             <Avatar place="header" />
           </>
         )}

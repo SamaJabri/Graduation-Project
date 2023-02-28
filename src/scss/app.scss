@@ -101,3 +101,35 @@
     cursor: pointer;
   }
 }
+
+.dark {
+  min-height: 90vh;
+  background-color: $color-secondary;
+
+  .header {
+    background-color: $color-secondary;
+
+    &__user-avatar {
+      @include userAvatar($backgroundColor: white, $color: $color-secondary);
+    }
+
+    &__seperator {
+      border-color: white;
+    }
+
+    &__exam-name {
+      h2 {
+        color: white;
+      }
+    }
+  }
+
+  .navbar {
+    background-color: $color-secondary;
+    border-top-color: white;
+  }
+
+  .icon {
+    color: white;
+  }
+}

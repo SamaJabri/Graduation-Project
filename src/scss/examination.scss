@@ -100,3 +100,47 @@
     font-weight: 600;
   }
 }
+
+.dark {
+  .examination {
+    &__view-options {
+      button {
+        @include button($color-secondary, white);
+      }
+    }
+
+    &__view {
+      height: 17rem;
+      width: 100%;
+
+      .table {
+        border-color: $color-secondary;
+
+        .table__head {
+          color: $color-secondary;
+          background-color: white;
+
+          th {
+            border-right-color: $color-secondary;
+
+            .icon {
+              color: $color-secondary;
+            }
+          }
+        }
+
+        .table__body {
+          color: white;
+
+          td {
+            border-color: white;
+          }
+        }
+      }
+    }
+
+    &__info {
+      color: white;
+    }
+  }
+}

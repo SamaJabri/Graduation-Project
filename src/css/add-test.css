@@ -121,4 +121,23 @@ a {
   display: none;
 }
 
+.dark .add-test {
+  color: white;
+}
+.dark .add-test__space {
+  color: white;
+  border-color: white;
+}
+.dark .add-test__options button {
+  padding: 0.3rem 0.9rem;
+  color: white;
+  background-color: #0e3b39;
+  border: 1px solid white;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.dark .add-test__options button:hover {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=add-test.css.map */
