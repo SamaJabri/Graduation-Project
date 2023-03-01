@@ -91,8 +91,31 @@ const Header = () => {
             <Link to="/home">
               <img src={darkMode ? LogoDarkMode : Logo} alt="Logo" />
             </Link>
-            <button onClick={toggleDarkMode}>Dark</button>
-            <Avatar place="header" />
+
+            <div className="header__avatar-switch">
+              <div className="toggleWrapper">
+                <input
+                  type="checkbox"
+                  className="dn"
+                  id="dn"
+                  checked={!darkMode}
+                />
+                <label htmlFor="dn" className="toggle" onClick={toggleDarkMode}>
+                  <span className="toggle__handler">
+                    <span className="crater crater--1"></span>
+                    <span className="crater crater--2"></span>
+                    <span className="crater crater--3"></span>
+                  </span>
+                  <span className="star star--1"></span>
+                  <span className="star star--2"></span>
+                  <span className="star star--3"></span>
+                  <span className="star star--4"></span>
+                  <span className="star star--5"></span>
+                  <span className="star star--6"></span>
+                </label>
+              </div>
+              <Avatar place="header" />
+            </div>
           </>
         )}
       </div>
