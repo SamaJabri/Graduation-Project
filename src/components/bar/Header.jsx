@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import Logo from "../../assets/Logo.svg";
+import LogoDarkMode from "../../assets/LogoDarkMode.svg";
 
 import useExaminationStore from "../../store/examination/examination-store.js";
+import usePatientsStore from "../../store/patient/patients-store";
 import Avatar from "../Avatar";
 
 import Icon from "../Icon";
@@ -23,10 +25,15 @@ const Header = () => {
   const [examinationName, setExaminationName] = useState("");
   const [isExamFavorite, setIsExamFavorite] = useState();
 
+  // Info needed for header in an exmaination page
   const examinations = useExaminationStore((state) => state.examinations);
   const toggleIsFavoriteExamination = useExaminationStore(
     (state) => state.toggleIsFavoriteExamination
   );
+
+  // Dark mode value and toggler
+  const darkMode = usePatientsStore((state) => state.darkMode);
+  const toggleDarkMode = usePatientsStore((state) => state.toggleDarkMode);
 
   useEffect(() => {
     if (pagePath.includes("examination")) {
@@ -82,10 +89,33 @@ const Header = () => {
         ) : (
           <>
             <Link to="/home">
-              <img src={Logo} alt="Logo" />
+              <img src={darkMode ? LogoDarkMode : Logo} alt="Logo" />
             </Link>
 
-            <Avatar place="header" />
+            <div className="header__avatar-switch">
+              <div className="toggleWrapper">
+                <input
+                  type="checkbox"
+                  className="dn"
+                  id="dn"
+                  checked={!darkMode}
+                />
+                <label htmlFor="dn" className="toggle" onClick={toggleDarkMode}>
+                  <span className="toggle__handler">
+                    <span className="crater crater--1"></span>
+                    <span className="crater crater--2"></span>
+                    <span className="crater crater--3"></span>
+                  </span>
+                  <span className="star star--1"></span>
+                  <span className="star star--2"></span>
+                  <span className="star star--3"></span>
+                  <span className="star star--4"></span>
+                  <span className="star star--5"></span>
+                  <span className="star star--6"></span>
+                </label>
+              </div>
+              <Avatar place="header" />
+            </div>
           </>
         )}
       </div>

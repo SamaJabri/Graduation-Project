@@ -37,6 +37,18 @@ a {
   cursor: pointer;
 }
 
+.dark #active-button {
+  padding: 0.3rem 0.9rem;
+  color: #0e3b39;
+  background-color: white;
+  border: 1px solid #0e3b39;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.dark #active-button:hover {
+  cursor: pointer;
+}
+
 .profile {
   padding: 1rem 0;
   margin: 0 5%;
@@ -175,6 +187,95 @@ a {
 }
 .profile__edit input option:hover,
 .profile__edit select option:hover {
+  cursor: pointer;
+  background-color: #218d87;
+  color: white;
+}
+
+.dark .profile__image-options button:first-child {
+  padding: 0.3rem 0.9rem;
+  color: white;
+  background-color: #0e3b39;
+  border: 1px solid white;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.dark .profile__image-options button:first-child:hover {
+  cursor: pointer;
+}
+.dark .profile__image-options button:last-child {
+  padding: 0.3rem 0.9rem;
+  color: #0e3b39;
+  background-color: white;
+  border: 1px solid #0e3b39;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.dark .profile__image-options button:last-child:hover {
+  cursor: pointer;
+}
+.dark .profile__user-avatar {
+  width: 8rem;
+  height: 8rem;
+  border: none;
+  border-radius: 14rem;
+  background-color: white;
+  font-size: 2.3529411765rem;
+  color: #0e3b39;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.dark .profile__user-avatar:hover {
+  cursor: pointer;
+}
+.dark .profile__info h2 {
+  color: white;
+}
+.dark .profile__info p {
+  color: white;
+}
+.dark .profile__edit label {
+  color: white;
+}
+.dark .profile__edit input,
+.dark .profile__edit select {
+  color: #0e3b39;
+  background-color: white;
+  font-size: 1.2rem;
+  padding: 0.4rem 0.2rem;
+  border: 1px solid #0e3b39;
+  border-radius: 0.2rem;
+  margin-bottom: 0.8rem;
+  margin-top: 0.2rem;
+  outline: none;
+}
+.dark .profile__edit input::-webkit-outer-spin-button, .dark .profile__edit input::-webkit-inner-spin-button,
+.dark .profile__edit select::-webkit-outer-spin-button,
+.dark .profile__edit select::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.dark .profile__edit input[type=number],
+.dark .profile__edit select[type=number] {
+  -moz-appearance: textfield;
+}
+.dark .profile__edit input[type=submit],
+.dark .profile__edit select[type=submit] {
+  padding: 0.3rem 0.9rem;
+  color: white;
+  background-color: #0e3b39;
+  border: 1px solid white;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.dark .profile__edit input[type=submit]:hover,
+.dark .profile__edit select[type=submit]:hover {
+  cursor: pointer;
+}
+.dark .profile__edit input option:hover,
+.dark .profile__edit select option:hover {
   cursor: pointer;
   background-color: #218d87;
   color: white;

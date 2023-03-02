@@ -37,6 +37,18 @@ a {
   cursor: pointer;
 }
 
+.dark #active-button {
+  padding: 0.3rem 0.9rem;
+  color: #0e3b39;
+  background-color: white;
+  border: 1px solid #0e3b39;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.dark #active-button:hover {
+  cursor: pointer;
+}
+
 .examination {
   padding: 1rem 0;
   margin: 0 5%;
@@ -128,6 +140,44 @@ a {
   width: 100%;
   text-align: center;
   font-weight: 600;
+}
+
+.dark .examination__view-options button {
+  padding: 0.3rem 0.9rem;
+  color: white;
+  background-color: #0e3b39;
+  border: 1px solid white;
+  border-radius: 0.14rem;
+  outline: none;
+}
+.dark .examination__view-options button:hover {
+  cursor: pointer;
+}
+.dark .examination__view {
+  height: 17rem;
+  width: 100%;
+}
+.dark .examination__view .table {
+  border-color: #0e3b39;
+}
+.dark .examination__view .table .table__head {
+  color: #0e3b39;
+  background-color: white;
+}
+.dark .examination__view .table .table__head th {
+  border-right-color: #0e3b39;
+}
+.dark .examination__view .table .table__head th .icon {
+  color: #0e3b39;
+}
+.dark .examination__view .table .table__body {
+  color: white;
+}
+.dark .examination__view .table .table__body td {
+  border-color: white;
+}
+.dark .examination__info {
+  color: white;
 }
 
 /*# sourceMappingURL=examination.css.map */

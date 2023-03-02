@@ -8,11 +8,15 @@ import { useParams } from "react-router-dom";
 
 import Graph from "../components/examination/Graph";
 import Table from "../components/examination/Table";
+import usePatientsStore from "../store/patient/patients-store";
 
 const Examination = () => {
   const [viewType, setViewType] = useState("Graph");
 
   const { id } = useParams();
+
+  // Get current mode to decide graph color
+  const darkMode = usePatientsStore((state) => state.darkMode);
 
   // Get the name of examination from store
   const [{ name: examinationName }] = examinations.filter(
@@ -58,7 +62,11 @@ const Examination = () => {
         }}
       >
         {viewType === "Graph" ? (
-          <Graph data={graphData} color="#218d87" leftMargin={-26} />
+          <Graph
+            data={graphData}
+            color={darkMode ? "white" : "#218d87"}
+            leftMargin={-26}
+          />
         ) : (
           <Table data={examination} />
         )}
