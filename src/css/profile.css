@@ -116,6 +116,9 @@ a {
   font-weight: bold;
   font-size: large;
   margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 .profile__info p span {
   font-weight: normal;

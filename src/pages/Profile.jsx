@@ -5,6 +5,7 @@ import Avatar from "../components/Avatar";
 
 import { saveToCloudinary } from "../assets/utility-functions";
 import Icon from "../components/Icon";
+import usePatientsStore from "../store/patient/patients-store";
 
 const Profile = () => {
   const { id } = useParams();
@@ -13,14 +14,10 @@ const Profile = () => {
   const [isBeingEdited, setIsBeingEdited] = useState(false);
   const [userAvatar, setUserAvatar] = useState({ image: null, preview: "" });
 
-  const currentUser = {
-    id: 0,
-    username: "Sama",
-    firstName: "Sama",
-    lastName: "Jabri",
-    email: "sama.jabri@outlook.com",
-    password: "Sama",
-  };
+  const currentPatient = usePatientsStore((state) => state.currentPatient);
+  const UpdatePatientInfo = usePatientsStore(
+    (state) => state.UpdatePatientInfo
+  );
 
   const toggleEdit = (e) => setIsBeingEdited((isBeingEdited) => !isBeingEdited);
 
@@ -41,6 +38,20 @@ const Profile = () => {
   // Handle the update of data --> Update store
   const handleUserInfoUpdate = (e) => {
     e.preventDefault();
+
+    const { name, surname, gender, age, weight, height } = e.currentTarget;
+
+    const updatedUser = {
+      name: name.value,
+      surname: surname.value,
+      gender: gender.value,
+      age: age.value,
+      weight: weight.value,
+      height: height.value,
+    };
+
+    UpdatePatientInfo(updatedUser);
+    toggleEdit(e);
   };
 
   return (
@@ -73,81 +84,90 @@ const Profile = () => {
 
         {isBeingEdited ? (
           <form className="profile__edit" onSubmit={handleUserInfoUpdate}>
-            <label for="firstName">First Name</label>{" "}
+            <label htmlFor="name">First Name</label>{" "}
             <input
               type="text"
-              name="firstName"
-              id="firstName"
-              defaultValue={currentUser.firstName}
+              name="name"
+              id="name"
+              defaultValue={currentPatient.name}
             />
-            <label for="lastName">Last Name</label>{" "}
+            <label htmlFor="surname">Last Name</label>{" "}
             <input
               type="text"
-              name="lastName"
-              id="lastName"
-              defaultValue={currentUser.lastName}
+              name="surname"
+              id="surname"
+              defaultValue={currentPatient.surname}
             />
-            <label for="gender">Gender</label>{" "}
+            <label htmlFor="gender">Gender</label>{" "}
             <select id="gender" name="gender">
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
-            <label for="age">Age</label>{" "}
+            <label htmlFor="age">Age</label>{" "}
             <input
               type="number"
               name="age"
               id="age"
               min="0"
               max="200"
-              defaultValue={currentUser.age}
+              defaultValue={currentPatient.age}
             />
-            <label for="weight">Weight</label>{" "}
+            <label htmlFor="weight">Weight</label>{" "}
             <input
               type="number"
               name="weight"
               id="weight"
-              defaultValue={currentUser.weight}
+              defaultValue={currentPatient.weight}
             />
-            <label for="height">Height</label>{" "}
+            <label htmlFor="height">Height</label>{" "}
             <input
               type="number"
               name="height"
               id="height"
-              defaultValue={currentUser.height}
+              defaultValue={currentPatient.height}
             />
             <input type="submit" value="Save" />
           </form>
         ) : (
           <>
-            <p>
-              First Name: <span>{currentUser.firstName}</span>
+            <p title="Name & Surname">
+              <Icon iconName="AiOutlineUser" />
+              <span>
+                {currentPatient.name} {currentPatient.surname}
+              </span>
             </p>
-            <p>
-              Last Name: <span>{currentUser.lastName}</span>
+            <p title="Gender">
+              <Icon
+                iconName={
+                  currentPatient.gender === "m"
+                    ? "AiOutlineMan"
+                    : "AiOutlineWoman"
+                }
+              />
+              <span>{currentPatient.gender || "-"}</span>
             </p>
-            <p>
-              Gender: <span>{currentUser.gender || "-"}</span>
+            <p title="Age">
+              <Icon iconName="AiOutlineUsergroupAdd" />
+              <span>{currentPatient.age || "-"}</span>
             </p>
-            <p>
-              Age: <span>{currentUser.age || "-"}</span>
+            <p title="Weight">
+              <Icon iconName="GiWeight" />
+              <span>{currentPatient.weight || "-"}</span>
             </p>
-            <p>
-              Weight: <span>{currentUser.weight || "-"}</span>
-            </p>
-            <p>
-              Height: <span>{currentUser.height || "-"}</span>
+            <p title="Height">
+              <Icon iconName="AiOutlineColumnHeight" />
+              <span>{currentPatient.height || "-"}</span>
             </p>
             <p>
               BMI:{" "}
               <span>
-                {currentUser.weight / Math.pow(currentUser.height, 2) || "-"}
+                {currentPatient.weight / Math.pow(currentPatient.height, 2) ||
+                  "-"}
               </span>
             </p>
           </>
         )}
       </div>
-      {/*       <button className="profile__calculate-bmi" onClick={calculateBMI}>Calculate My BMI</button>
-       */}{" "}
     </div>
   );
 };

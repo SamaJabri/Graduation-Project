@@ -13,42 +13,45 @@ const Header = () => {
 
   const { id } = useParams();
 
-  const pagePath = window.location.pathname.split("/")[1];
+  const pagePath = String(window.location.pathname);
 
   const [isInExamPage, setIsInExamPage] = useState(
-    pagePath === "examination" ? true : false
+    pagePath.includes("examination") ? true : false
   );
 
+  // Info needed in header (exam name & isFavorite)
   const [examinationName, setExaminationName] = useState("");
   const [isExamFavorite, setIsExamFavorite] = useState();
 
-  // Get exam name, check if it's in favorites, and update it
   const examinations = useExaminationStore((state) => state.examinations);
-  const updateExamination = useExaminationStore(
-    (state) => state.updateExamination
+  const toggleIsFavoriteExamination = useExaminationStore(
+    (state) => state.toggleIsFavoriteExamination
   );
 
   useEffect(() => {
-    if (pagePath === "examination") {
+    if (pagePath.includes("examination")) {
       setIsInExamPage(true);
 
       const [{ name, isFavorite }] = examinations.filter(
         (examination) => examination.id === Number(id)
       );
-
+      console.log("Store:", isFavorite);
       setIsExamFavorite(isFavorite);
       setExaminationName(name);
 
-      updateExamination(id, isExamFavorite);
+      //toggleIsFavoriteExamination(id);
     } else {
       setIsInExamPage(false);
     }
-  }, [isInExamPage, id]);
+  }, [isExamFavorite, isInExamPage, id]);
 
   const toggleIsFavorite = (e) => {
     e.preventDefault();
-
-    setIsExamFavorite((isExamFavorite) => !isExamFavorite);
+    console.log("Before:", isExamFavorite);
+    //setIsExamFavorite((isExamFavorite) => !isExamFavorite);
+    console.log("After:", isExamFavorite);
+    console.log(id);
+    toggleIsFavoriteExamination(id);
   };
 
   const goToPreviousPage = (e) => {

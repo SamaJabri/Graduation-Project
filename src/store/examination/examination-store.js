@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 import INIT_EXAMINATIONS from "./examinations";
@@ -34,12 +34,50 @@ const examinationStore = (set, get) => ({
 });
 
 const useExaminationStore = create(
+  persist(
+    (set, get) => ({
+      examinations: INIT_EXAMINATIONS,
+
+      addExamination: (examination) => {
+        set((state) => ({
+          examinations: [examination, ...state.examinations],
+        }));
+      },
+
+      removeExmamination: (examId) => {
+        set((state) => ({
+          examinations: state.examinations.filter(
+            (examination) => examination.id !== examId
+          ),
+        }));
+      },
+
+      toggleIsFavoriteExamination: (examId) =>
+        set((state) => ({
+          examinations: state.examinations.map((examination) =>
+            examination.id === examId
+              ? {
+                  ...examination,
+                  isFavorite: !examination.isFavorite,
+                }
+              : examination
+          ),
+        })),
+    }),
+    {
+      name: "examinations",
+    }
+  )
+);
+
+/*
+const useExaminationStore = create(
   devtools(
     persist(examinationStore, {
       name: "examinations",
       getStorage: () => sessionStorage,
     })
   )
-);
+); */
 
 export default useExaminationStore;

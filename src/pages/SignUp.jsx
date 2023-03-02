@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
+
+import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { AnimatePresence, motion } from "framer-motion";
+
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Button, IconButton, Typography } from "@mui/material";
 import Logo from "../assets/Logo.svg";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
+import usePatientsStore from "../store/patient/patients-store";
+import { nanoid } from "nanoid";
 
 const SignUp = () => {
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -14,112 +20,111 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [warningMessage, setWarningMessage] = useState("");
 
-  const endornment = (property, setProperty) => {
-    return {
-      endAdornment: (
-        <InputAdornment position="end">
-          <IconButton
-            aria-label="toggle password visibility"
-            onClick={() => setProperty((show) => !show)}
-            edge="end"
-          >
-            {property ? (
-              <AiFillEyeInvisible style={{ color: "#683636" }} />
-            ) : (
-              <AiFillEye style={{ color: "#683636" }} />
-            )}
-          </IconButton>
-        </InputAdornment>
-      ),
-    };
-  };
+  // Store variables & functions
+  const patients = usePatientsStore((state) => state.patients);
+  const createAndLoginPatient = usePatientsStore(
+    (state) => state.createAndLoginPatient
+  );
 
-  const handleSignUpForm = (e) => {
-    e.preventDefault();
-  };
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!username) {
-      setErrorMessage("No error");
-    } else if (!(password || confirmPassword)) {
-      setErrorMessage("No error");
-    } else if (password !== confirmPassword) {
-      setErrorMessage("Passwords don't match");
+  const isUsernameTaken = patients.find(
+    (patient) => patient.username === username
+  );
+
+  const doesPasswordMatch = patients.find(
+    (patient) => patient.password === password
+  );
+
+  const handleSignUp = (e) => {
+    if (isUsernameTaken) {
+      if (doesPasswordMatch) {
+        setWarningMessage("Username already exist, try loging in");
+      } else {
+        setWarningMessage("Username taken, try a different one");
+      }
     } else {
-      setErrorMessage("");
+      if (password === confirmPassword) {
+        const newPatient = {
+          id: nanoid(),
+          tc: null,
+          name: name,
+          surname: surname,
+          gender: "",
+          email: "",
+          username: username,
+          password: password,
+          age: null,
+          weight: null,
+          height: null,
+          img_src: "",
+        };
+
+        createAndLoginPatient(newPatient);
+
+        navigate("/home");
+      } else {
+        setWarningMessage("Passwords don't match");
+      }
     }
-  }, [username, password, confirmPassword]);
+  };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "90vh",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "2rem",
-          width: "22rem",
-          height: "34rem",
-          boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "1rem",
-          }}
-        >
-          <img src={Logo} alt="Lab Archive Logo" width="60%" />
-          <Typography variant="h6" color="primary">
-            MyLabDocs
-          </Typography>
+    <div className="welcome welcome--sign-up">
+      <div className="login sign-up">
+        <div className="login__header">
+          <img src={Logo} alt="MyLabDocs Logo" />
+          <h2>MyLabDocs</h2>
         </div>
 
-        <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "70%",
-            gap: "1rem",
-          }}
-          onSubmit={handleSignUpForm}
-        >
-          <Typography
-            variant="body1"
-            color="error"
-            sx={{
-              visibility: `${
-                errorMessage !== "No error" ? "visible" : "hidden"
-              }`,
-              marginTop: "-0.8rem",
-            }}
-          >
-            {errorMessage}
-          </Typography>
+        <div className="login__form">
+          <AnimatePresence>
+            <motion.div
+              className={warningMessage ? "warning-message" : ""}
+              initial={{ scale: 0 }}
+              animate={{ scale: 0.9 }}
+              exit={{ scale: 0 }}
+              whileTap={{ scale: 0.7 }}
+              transition={{
+                type: "spring",
+                bounce: 0.5,
+                duration: 1,
+              }}
+            >
+              {warningMessage}
+            </motion.div>
+          </AnimatePresence>
+
+          <TextField
+            required
+            name="name"
+            label="Name"
+            variant="outlined"
+            className="login__form__field"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          <TextField
+            required
+            name="surname"
+            label="Surname"
+            variant="outlined"
+            className="login__form__field"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+          />
 
           <TextField
             required
             name="username"
             label="Username"
             variant="outlined"
+            className="login__form__field"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            sx={{ width: "100%" }}
           />
 
           <TextField
@@ -128,49 +133,73 @@ const SignUp = () => {
             type={showPassword ? "text" : "password"}
             name="password"
             variant="outlined"
+            className="login__form__field"
             value={password}
-            color={password === confirmPassword ? "primary" : "error"}
             onChange={(e) => setPassword(e.target.value)}
-            sx={{ width: "100%" }}
-            InputProps={endornment(showPassword, setShowPassword)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword((show) => !show)}
+                    edge="end"
+                  >
+                    {showPassword ? (
+                      <AiFillEyeInvisible style={{ color: "#218d87" }} />
+                    ) : (
+                      <AiFillEye style={{ color: "#218d87" }} />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <TextField
             required
             label="Confirm Password"
             type={showConfirmPassword ? "text" : "password"}
-            name="confirmPassword"
+            name="password"
             variant="outlined"
+            className="login__form__field"
             value={confirmPassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowConfirmPassword((show) => !show)}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? (
+                      <AiFillEyeInvisible style={{ color: "#218d87" }} />
+                    ) : (
+                      <AiFillEye style={{ color: "#218d87" }} />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
             }}
-            color={password === confirmPassword ? "primary" : "error"}
-            sx={{ width: "100%" }}
-            InputProps={endornment(showConfirmPassword, setShowConfirmPassword)}
           />
 
-          <Button
-            disabled={Boolean(errorMessage)}
+          <input
             type="submit"
-            variant="contained"
-            sx={{ marginTop: "2rem", width: "70%" }}
-          >
-            Sign Up
-          </Button>
-        </form>
-
-        <div>
-          <Typography variant="body1" color="secondary">
-            Already have an account?{" "}
-            <Link
-              to="/login"
-              style={{ color: "#CF7C7C", textDecoration: "none" }}
-            >
-              Login
-            </Link>
-          </Typography>
+            value="Sign Up"
+            className="login__form__button login__form__button--sign-up"
+            onClick={handleSignUp}
+            disabled={
+              !(name && surname && username && password && confirmPassword)
+            }
+          />
         </div>
+
+        <p>
+          Already have an account?{" "}
+          <Link to="/login" className="ternary">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
