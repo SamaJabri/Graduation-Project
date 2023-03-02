@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import LabTest from "../components/LabTest";
 
@@ -67,13 +68,17 @@ const Tests = () => {
 
   const currentPatient = usePatientsStore((state) => state.currentPatient);
 
-  const myLabs = useLaboratoryStore((state) => state.myLabs);
-  const finzalizeMyLabData = useLaboratoryStore(
-    (state) => state.finzalizeMyLabData
-  );
+  // Store variables & functions
+  const finalLabs = useLaboratoryStore((state) => state.finalLabs);
+  const getSamples = useLaboratoryStore((state) => state.getSamples);
+  const getSampleInLab = useLaboratoryStore((state) => state.getSampleInLab);
 
-  finzalizeMyLabData(currentPatient.id);
-  //console.log(myLabs);
+  useEffect(() => {
+    getSamples(currentPatient.id);
+    getSampleInLab(currentPatient.id);
+  }, []);
+
+  console.log(finalLabs);
 
   const [labsList, setLabsList] = useState(labs);
 
@@ -150,14 +155,16 @@ const Tests = () => {
             const year = toDate.split(" ")[3];
 
             return (
-              <LabTest
-                key={sampleInLabId}
-                id={sampleInLabId}
-                doctorName={`${doctorName} ${doctorSurname}`}
-                labName={labName}
-                month={month}
-                year={year}
-              />
+              <Link to={`/${sampleInLabId}`}>
+                <LabTest
+                  key={sampleInLabId}
+                  id={sampleInLabId}
+                  doctorName={`${doctorName} ${doctorSurname}`}
+                  labName={labName}
+                  month={month}
+                  year={year}
+                />
+              </Link>
             );
           }
         )}

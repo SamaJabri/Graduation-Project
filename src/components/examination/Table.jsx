@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Icon from "../Icon";
+import TableOrderedColumn from "../TableOrderedColumn";
 
 const Table = (props) => {
   const [data, setData] = useState(props.data);
   const [ascending, setAscending] = useState(true);
 
+  // Toggle between ordering in ascending & descending order
   const toggleAscending = () => setAscending((asc) => !asc);
 
+  // Ordering functions (By date & By test result)
   const orderByDate = (e) => {
     e.preventDefault();
 
@@ -36,11 +39,35 @@ const Table = (props) => {
     );
   };
 
+  // Call the correct order function. When adding a new table ordering function
+  // must be written here + a condition to call it.
+  const orderFunction = (e, rowName) => {
+    if (rowName === "Date") {
+      orderByDate(e);
+    } else {
+      orderByResult(e);
+    }
+  };
+
+  useEffect(() => setData(props.data));
+
   return (
     <table className="table">
       <thead className="table__head">
         <tr>
-          <th>
+          {props.rows.map((row, index) => (
+            <th key={index}>
+              {props.orderedRows?.includes(index) ? (
+                <TableOrderedColumn
+                  name={row}
+                  onClick={(e) => orderFunction(e, row)}
+                />
+              ) : (
+                row
+              )}
+            </th>
+          ))}
+          {/* <th>
             <div>
               <p>Date</p>
               <Icon iconName="AiOutlineSwap" onClick={orderByDate} />
@@ -53,7 +80,7 @@ const Table = (props) => {
             </div>
           </th>
           <th>Unit</th>
-          <th>Reference Values</th>
+          <th>Reference Values</th> */}
         </tr>
       </thead>
 
@@ -62,13 +89,14 @@ const Table = (props) => {
           ({
             id,
             date,
+            name,
             result,
             unit,
             starting_normal_range,
             ending_normal_range,
           }) => (
             <tr key={id}>
-              <td>{date}</td>
+              <td>{props.rows[0] === "Date" ? date : name}</td>
               <td>{result}</td>
               <td>{unit}</td>
               <td>

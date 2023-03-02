@@ -20,52 +20,6 @@
   &__view {
     height: 17rem;
     width: 100%;
-
-    .table {
-      border: 1px solid $color-primary;
-      text-align: center;
-      width: 100%;
-      border-collapse: collapse;
-      overflow-x: scroll;
-
-      .table__head {
-        color: white;
-        background-color: $color-primary;
-
-        th {
-          padding: 0.5rem 0.8rem;
-          border-right: 1px solid white;
-          font-weight: 100;
-
-          div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.2rem;
-          }
-
-          &:last-of-type {
-            border-right: none;
-          }
-
-          .icon {
-            color: white;
-            transform: rotate(90deg);
-            font-size: 1rem;
-          }
-        }
-      }
-
-      .table__body {
-        font-size: 0.8rem;
-        color: $color-secondary;
-
-        td {
-          padding: 0.5rem 0.2rem;
-          border: 1px solid $color-primary;
-        }
-      }
-    }
   }
 
   &__info {
@@ -112,35 +66,86 @@
     &__view {
       height: 17rem;
       width: 100%;
-
-      .table {
-        border-color: $color-secondary;
-
-        .table__head {
-          color: $color-secondary;
-          background-color: white;
-
-          th {
-            border-right-color: $color-secondary;
-
-            .icon {
-              color: $color-secondary;
-            }
-          }
-        }
-
-        .table__body {
-          color: white;
-
-          td {
-            border-color: white;
-          }
-        }
-      }
     }
 
     &__info {
       color: white;
+    }
+
+    &__warning {
+      color: $warning-dark;
+      border-color: $warning-dark;
+    }
+  }
+
+  .table {
+    border-color: white;
+
+    .table__head {
+      color: $color-secondary;
+      background-color: white;
+
+      th {
+        border-right-color: $color-secondary;
+
+        .icon {
+          color: $color-secondary;
+        }
+      }
+    }
+
+    .table__body {
+      color: white;
+
+      td {
+        border-color: white;
+      }
+    }
+  }
+}
+
+.table {
+  border: 1px solid $color-primary;
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: scroll;
+
+  .table__head {
+    color: white;
+    background-color: $color-primary;
+
+    th {
+      padding: 0.5rem 0.8rem;
+      border-right: 1px solid white;
+      font-weight: 100;
+
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.2rem;
+      }
+
+      &:last-of-type {
+        border-right: none;
+      }
+
+      .icon {
+        color: white;
+        transform: rotate(90deg);
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .table__body {
+    font-size: 0.8rem;
+    color: $color-secondary;
+
+    td {
+      padding: 0.5rem 0.2rem;
+      border: 1px solid $color-primary;
     }
   }
 }

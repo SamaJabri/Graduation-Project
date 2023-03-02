@@ -16,17 +16,6 @@ import SignUp from "./pages/SignUp";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { createTheme, ThemeProvider } from "@mui/material";
-
-const theme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#218d87",
-    },
-  },
-});
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -74,8 +63,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

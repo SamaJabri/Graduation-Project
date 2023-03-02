@@ -5,6 +5,7 @@ import Logo from "../../assets/Logo.svg";
 import LogoDarkMode from "../../assets/LogoDarkMode.svg";
 
 import useExaminationStore from "../../store/examination/examination-store.js";
+import useLaboratoryStore from "../../store/laboratory/laboratory-store";
 import usePatientsStore from "../../store/patient/patients-store";
 import Avatar from "../Avatar";
 
@@ -21,14 +22,24 @@ const Header = () => {
     pagePath.includes("examination") ? true : false
   );
 
-  // Info needed in header (exam name & isFavorite)
+  const [isInLabPage, setIsInLabPage] = useState(
+    pagePath.includes("tests/") ? true : false
+  );
+
+  // Info needed in header
+  // Exam name & isFavorite --> Examination page
+  // Lab name --> TestDetails Page
   const [examinationName, setExaminationName] = useState("");
   const [isExamFavorite, setIsExamFavorite] = useState();
+  const [LabName, setLabName] = useState();
 
   // Info needed for header in an exmaination page
   const examinations = useExaminationStore((state) => state.examinations);
   const toggleIsFavoriteExamination = useExaminationStore(
     (state) => state.toggleIsFavoriteExamination
+  );
+  const getLabNameFromSample = useLaboratoryStore(
+    (state) => state.getLabNameFromSample
   );
 
   // Dark mode value and toggler
@@ -47,8 +58,13 @@ const Header = () => {
       setExaminationName(name);
 
       //toggleIsFavoriteExamination(id);
+    } else if (pagePath.includes("tests/")) {
+      setIsInLabPage(true);
+
+      setLabName(getLabNameFromSample(Number(id)));
     } else {
       setIsInExamPage(false);
+      setIsInLabPage(false);
     }
   }, [isExamFavorite, isInExamPage, id]);
 
@@ -86,6 +102,13 @@ const Header = () => {
               <Icon iconName="AiOutlineHeart" onClick={toggleIsFavorite} />
             )}
           </>
+        ) : isInLabPage ? (
+          <>
+            <div className="header__exam-name">
+              <Icon iconName="AiOutlineLeft" onClick={goToPreviousPage} />
+              <h2>{LabName}</h2>
+            </div>
+          </>
         ) : (
           <>
             <Link to="/home">
@@ -99,8 +122,9 @@ const Header = () => {
                   className="dn"
                   id="dn"
                   checked={!darkMode}
+                  onChange={toggleDarkMode}
                 />
-                <label htmlFor="dn" className="toggle" onClick={toggleDarkMode}>
+                <label htmlFor="dn" className="toggle">
                   <span className="toggle__handler">
                     <span className="crater crater--1"></span>
                     <span className="crater crater--2"></span>

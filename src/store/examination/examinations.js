@@ -14,8 +14,8 @@ const INIT_EXAMINATIONS = [
   },
   {
     id: 7,
-    sample_id: 0,
-    sample_in_lab_id: 0,
+    sample_id: 1,
+    sample_in_lab_id: 1,
     name: "MCV",
     result: 80,
     situation: "",
@@ -27,8 +27,8 @@ const INIT_EXAMINATIONS = [
   },
   {
     id: 8,
-    sample_id: 0,
-    sample_in_lab_id: 0,
+    sample_id: 2,
+    sample_in_lab_id: 2,
     name: "MCV",
     result: 90,
     situation: "",
