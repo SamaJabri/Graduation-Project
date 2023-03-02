@@ -6,8 +6,6 @@ import INIT_DOCTORS from "./doctors";
 import INIT_SAMPLE_IN_LAB from "./sample-in-lab";
 import INIT_LABORATORIES from "./laboratories";
 
-//import usePatientsStore from "../patient/patients-store";
-
 const useLaboratoryStore = create(
   persist(
     (set, get) => ({
@@ -15,7 +13,6 @@ const useLaboratoryStore = create(
       samples: INIT_SAMPLES,
       samples_in_lab: INIT_SAMPLE_IN_LAB,
       laboratories: INIT_LABORATORIES,
-      //currentPatient: usePatientsStore((state) => state.currentPatient),
 
       myLabs: [] /* [
         {
@@ -32,32 +29,44 @@ const useLaboratoryStore = create(
         },
       ], */,
 
+      finalLabs: [],
+
       getSamples: (id) =>
-        set((state) => ({
-          myLabs: state.samples.filter((sample) => sample.patient_id === id),
-        })),
+        set({
+          ...get(),
+          myLabs: get().samples.filter((sample) => sample.patient_id === id),
+        }),
 
       getSampleInLab: (id) =>
-        set((state) => ({
-          myLabs: state.myLabs.map((myLab) => {
-            extraInfo: state.samples_in_lab.filter(
+        set((state) => {
+          const extraInfo = (myLab) =>
+            state.samples_in_lab.filter(
               (sample) => sample.sample_id === myLab.id
             );
 
-            return {
-              ...myLab,
-              extraInfo,
-            };
-          }),
-        })),
-
-      finzalizeMyLabData: (id) =>
-        set((state) => {
-          state.getSamples(id);
-          console.log(state.myLabs);
-          state.getSampleInLab(id);
-          console.log(state.myLabs);
+          return {
+            finalLabs: state.myLabs.map((myLab) => extraInfo(myLab)),
+          };
         }),
+
+      getLabNameFromSample: (id) => {
+        const labId = get().samples_in_lab.filter(
+          (sample) => sample.id === id
+        )[0].lab_id;
+
+        console.log("l", labId);
+        return get().laboratories.filter((lab) => lab.id === labId)[0].lab_name;
+      },
+
+      /*  finzalizeMyLabData: (id) =>
+        set((state) => {
+          console.log(state.myLabs);
+
+          //state.getSamples(id);
+
+          //state.getSampleInLab(id);
+          //console.log(state.myLabs);
+        }), */
     }),
     { name: "laboratories" }
   )

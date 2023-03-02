@@ -63,6 +63,11 @@ const useExaminationStore = create(
               : examination
           ),
         })),
+
+      getASampleExaminations: (id) =>
+        get().examinations.filter(
+          (examination) => examination.sample_in_lab_id === id
+        ),
     }),
     {
       name: "examinations",

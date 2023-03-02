@@ -68,7 +68,11 @@ const Examination = () => {
             leftMargin={-26}
           />
         ) : (
-          <Table data={examination} />
+          <Table
+            rows={["Date", "Result", "Unit", "Reference Values"]}
+            orderedRows={[0, 1]}
+            data={examination}
+          />
         )}
       </div>
 

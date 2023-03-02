@@ -2,9 +2,12 @@
 $color-primary: #218d87;
 $color-secondary: #0e3b39;
 $color-ternary: #deb992;
-$warning: #8d2121;
+
 $color-primary-disabled: rgba(33, 141, 135, 0.12);
 $color-text-disabled: rgba(0, 0, 0, 0.26);
+
+$warning: #8d2121;
+$warning-dark: #ff6262;
 
 @mixin button($bg-color, $color) {
   padding: 0.3rem 0.9rem;

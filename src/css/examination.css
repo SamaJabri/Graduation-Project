@@ -76,44 +76,6 @@ a {
   height: 17rem;
   width: 100%;
 }
-.examination__view .table {
-  border: 1px solid #218d87;
-  text-align: center;
-  width: 100%;
-  border-collapse: collapse;
-  overflow-x: scroll;
-}
-.examination__view .table .table__head {
-  color: white;
-  background-color: #218d87;
-}
-.examination__view .table .table__head th {
-  padding: 0.5rem 0.8rem;
-  border-right: 1px solid white;
-  font-weight: 100;
-}
-.examination__view .table .table__head th div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.2rem;
-}
-.examination__view .table .table__head th:last-of-type {
-  border-right: none;
-}
-.examination__view .table .table__head th .icon {
-  color: white;
-  transform: rotate(90deg);
-  font-size: 1rem;
-}
-.examination__view .table .table__body {
-  font-size: 0.8rem;
-  color: #0e3b39;
-}
-.examination__view .table .table__body td {
-  padding: 0.5rem 0.2rem;
-  border: 1px solid #218d87;
-}
 .examination__info {
   display: flex;
   flex-direction: column;
@@ -157,27 +119,70 @@ a {
   height: 17rem;
   width: 100%;
 }
-.dark .examination__view .table {
-  border-color: #0e3b39;
+.dark .examination__info {
+  color: white;
 }
-.dark .examination__view .table .table__head {
+.dark .examination__warning {
+  color: #ff6262;
+  border-color: #ff6262;
+}
+.dark .table {
+  border-color: white;
+}
+.dark .table .table__head {
   color: #0e3b39;
   background-color: white;
 }
-.dark .examination__view .table .table__head th {
+.dark .table .table__head th {
   border-right-color: #0e3b39;
 }
-.dark .examination__view .table .table__head th .icon {
+.dark .table .table__head th .icon {
   color: #0e3b39;
 }
-.dark .examination__view .table .table__body {
+.dark .table .table__body {
   color: white;
 }
-.dark .examination__view .table .table__body td {
+.dark .table .table__body td {
   border-color: white;
 }
-.dark .examination__info {
+
+.table {
+  border: 1px solid #218d87;
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: scroll;
+}
+.table .table__head {
   color: white;
+  background-color: #218d87;
+}
+.table .table__head th {
+  padding: 0.5rem 0.8rem;
+  border-right: 1px solid white;
+  font-weight: 100;
+}
+.table .table__head th div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+}
+.table .table__head th:last-of-type {
+  border-right: none;
+}
+.table .table__head th .icon {
+  color: white;
+  transform: rotate(90deg);
+  font-size: 1rem;
+}
+.table .table__body {
+  font-size: 0.8rem;
+  color: #0e3b39;
+}
+.table .table__body td {
+  padding: 0.5rem 0.2rem;
+  border: 1px solid #218d87;
 }
 
 /*# sourceMappingURL=examination.css.map */
