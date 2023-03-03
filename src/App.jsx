@@ -10,12 +10,6 @@ import usePatientsStore from "./store/patient/patients-store";
 
 function App() {
   const darkMode = usePatientsStore((state) => state.darkMode);
-  /*   const currentPatient = usePatientsStore((state) => state.currentPatient);
-  console.log(Boolean(currentPatient));
-
-  useEffect(() =>
-    currentPatient ? <Navigate to="/home" /> : <Navigate to="/login" />
-  ); */
 
   return (
     <div className={darkMode ? "dark" : ""}>
