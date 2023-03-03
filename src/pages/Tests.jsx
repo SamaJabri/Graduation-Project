@@ -78,8 +78,6 @@ const Tests = () => {
     getSampleInLab(currentPatient.id);
   }, []);
 
-  console.log(finalLabs);
-
   const [labsList, setLabsList] = useState(labs);
 
   const [yearFilter, setYearFilter] = useState("");
@@ -101,7 +99,6 @@ const Tests = () => {
     const selectedYear = String(year);
 
     setYearFilter(year);
-    console.log(monthFilter);
 
     handleFilterAndSetList(selectedYear, selectedYear, monthFilter);
   };
@@ -114,7 +111,7 @@ const Tests = () => {
         ? labs.filter(
             ({ expertApprovalTime }) =>
               expertApprovalTime.split("/")[2].includes(year) &&
-              expertApprovalTime.split("/")[0] === month
+              expertApprovalTime.split("/")[0].includes(month)
           )
         : labs
     );

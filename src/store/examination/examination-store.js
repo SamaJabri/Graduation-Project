@@ -44,7 +44,7 @@ const useExaminationStore = create(
         }));
       },
 
-      removeExmamination: (examId) => {
+      removeExamination: (examId) => {
         set((state) => ({
           examinations: state.examinations.filter(
             (examination) => examination.id !== examId
@@ -52,9 +52,24 @@ const useExaminationStore = create(
         }));
       },
 
-      toggleIsFavoriteExamination: (examId) =>
-        set((state) => ({
-          examinations: state.examinations.map((examination) =>
+      toggleIsFavoriteExamination: (examId) => {
+        console.log(examId);
+        console.log(
+          get().examinations.map((examination) => {
+            if (examination.id === examId) {
+              console.log("hi");
+
+              return {
+                ...examination,
+                isFavorite: !examination.isFavorite,
+              };
+            } else {
+              return examination;
+            }
+          })
+        );
+        set({
+          examinations: get().examinations.map((examination) =>
             examination.id === examId
               ? {
                   ...examination,
@@ -62,8 +77,10 @@ const useExaminationStore = create(
                 }
               : examination
           ),
-        })),
+        });
+      },
 
+      // Get all examinations for a certain sample (TestDetails Page)
       getASampleExaminations: (id) =>
         get().examinations.filter(
           (examination) => examination.sample_in_lab_id === id
@@ -74,15 +91,5 @@ const useExaminationStore = create(
     }
   )
 );
-
-/*
-const useExaminationStore = create(
-  devtools(
-    persist(examinationStore, {
-      name: "examinations",
-      getStorage: () => sessionStorage,
-    })
-  )
-); */
 
 export default useExaminationStore;

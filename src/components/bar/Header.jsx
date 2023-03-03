@@ -16,6 +16,9 @@ const Header = () => {
 
   const { id } = useParams();
 
+  // Cast id from String to Int for comparison
+  const idToInteger = parseInt(id);
+
   const pagePath = String(window.location.pathname);
 
   const [isInExamPage, setIsInExamPage] = useState(
@@ -51,17 +54,15 @@ const Header = () => {
       setIsInExamPage(true);
 
       const [{ name, isFavorite }] = examinations.filter(
-        (examination) => examination.id === Number(id)
+        (examination) => examination.id === idToInteger
       );
-      console.log("Store:", isFavorite);
+
       setIsExamFavorite(isFavorite);
       setExaminationName(name);
-
-      //toggleIsFavoriteExamination(id);
     } else if (pagePath.includes("tests/")) {
       setIsInLabPage(true);
 
-      setLabName(getLabNameFromSample(Number(id)));
+      setLabName(getLabNameFromSample(idToInteger));
     } else {
       setIsInExamPage(false);
       setIsInLabPage(false);
@@ -70,11 +71,10 @@ const Header = () => {
 
   const toggleIsFavorite = (e) => {
     e.preventDefault();
-    console.log("Before:", isExamFavorite);
-    //setIsExamFavorite((isExamFavorite) => !isExamFavorite);
-    console.log("After:", isExamFavorite);
-    console.log(id);
-    toggleIsFavoriteExamination(id);
+
+    setIsExamFavorite((isExamFavorite) => !isExamFavorite);
+
+    toggleIsFavoriteExamination(idToInteger);
   };
 
   const goToPreviousPage = (e) => {
