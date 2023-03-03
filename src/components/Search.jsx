@@ -1,7 +1,17 @@
 import React from "react";
+import Icon from "./Icon";
 
 const Search = () => {
-  return <div>Search</div>;
+const handleSearch = (e) => {
+
+}
+
+  return (
+    <div className="search">
+      <Icon iconName="AiOutlineSearch" onClick={handleSearch} />
+      <input placeholder="Search" type="search" className="search__field" />
+    </div>
+  );
 };
 
 export default Search;
