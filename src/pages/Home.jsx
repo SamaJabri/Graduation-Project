@@ -1,14 +1,25 @@
 import React, { useState } from "react";
 import ExaminationBubble from "../components/examination/ExaminationBubble";
 
-import useExaminationStore from "../store/examination/examination-store";
 import {
   INIT_UNIQUE_EXAMINATIONS,
   examinationVariables,
 } from "../assets/utility-functions";
 
+import useExaminationStore from "../store/examination/examination-store";
+import usePatientsStore from "../store/patient/patients-store";
+import useLaboratoryStore from "../store/laboratory/laboratory-store";
+
 const Home = () => {
-  const examinations = useExaminationStore((state) => state.examinations);
+  const getCurrentPatientExaminations = useExaminationStore(
+    (state) => state.getCurrentPatientExaminations
+  );
+  const currentPatient = usePatientsStore((state) => state.currentPatient);
+  const getSamples = useLaboratoryStore((state) => state.getSamples);
+
+  const examinations = getCurrentPatientExaminations(
+    getSamples(currentPatient.id)
+  );
 
   const [uniqueExaminations, setUniqueExamination] = useState(
     INIT_UNIQUE_EXAMINATIONS(examinations)

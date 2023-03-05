@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import Icon from "../Icon";
 import TableOrderedColumn from "../TableOrderedColumn";
 
 const Table = (props) => {
@@ -67,20 +66,6 @@ const Table = (props) => {
               )}
             </th>
           ))}
-          {/* <th>
-            <div>
-              <p>Date</p>
-              <Icon iconName="AiOutlineSwap" onClick={orderByDate} />
-            </div>
-          </th>
-          <th>
-            <div>
-              <p>Result</p>
-              <Icon iconName="AiOutlineSwap" onClick={orderByResult} />
-            </div>
-          </th>
-          <th>Unit</th>
-          <th>Reference Values</th> */}
         </tr>
       </thead>
 

@@ -44,8 +44,9 @@
   gap: 0.3rem;
   padding: 0.5rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   background-color: $color-primary;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 3px;
   color: white;
   transition: all 0.3s;
 
@@ -86,9 +87,10 @@
   }
 
   .examination-bubble {
-    border: 1px solid white;
-    background-color: $color-secondary;
+    border-bottom: 1px solid white;
+    background-color: $color-primary-disabled;
     color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 3px;
 
     &:hover {
       box-shadow: rgba(255, 255, 255, 0.24) 0px 5px 8px;

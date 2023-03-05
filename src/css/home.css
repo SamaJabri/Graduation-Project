@@ -96,8 +96,9 @@ a {
   gap: 0.3rem;
   padding: 0.5rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   background-color: #218d87;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 3px;
   color: white;
   transition: all 0.3s;
 }
@@ -133,9 +134,10 @@ a {
   cursor: pointer;
 }
 .dark .examination-bubble {
-  border: 1px solid white;
-  background-color: #0e3b39;
+  border-bottom: 1px solid white;
+  background-color: rgba(33, 141, 135, 0.12);
   color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 3px;
 }
 .dark .examination-bubble:hover {
   box-shadow: rgba(255, 255, 255, 0.24) 0px 5px 8px;

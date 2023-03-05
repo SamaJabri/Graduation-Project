@@ -46,7 +46,7 @@ const Avatar = (props) => {
             <button>My Profile</button>
           </Link>
 
-          <Link>
+          <Link to={`/profile/${currentPatient.id}`}>
             <button>Settings</button>
           </Link>
 
