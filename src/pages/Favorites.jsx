@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import ExaminationBubble from "../components/examination/ExaminationBubble";
 
-import useExaminationStore from "../store/examination/examination-store";
 import {
   INIT_UNIQUE_EXAMINATIONS,
   examinationVariables,
+  examinations,
 } from "../assets/utility-functions";
 
-const Favorites = () => {
-  const examinations = useExaminationStore((state) => state.examinations);
+import ExaminationBubble from "../components/examination/ExaminationBubble";
 
+const Favorites = () => {
+  // Patient will have multiple data for same examination.
+  // Here will filter to show only one bubble with his data.
   const [uniqueExaminations, setUniqueExamination] = useState(
     INIT_UNIQUE_EXAMINATIONS(examinations)
   );
