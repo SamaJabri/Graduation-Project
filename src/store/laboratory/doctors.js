@@ -1,13 +1,13 @@
 const INIT_DOCTORS = [
   {
-    id: 0,
-    name: "Dixie",
-    surname: "neurmaimaiti",
+    doctor_id: 0,
+    doctor_name: "Dixie",
+    doctor_surname: "neurmaimaiti",
   },
   {
-    id: 1,
-    name: "Atacan",
-    surname: "Janol",
+    doctor_id: 1,
+    doctor_name: "Atacan",
+    doctor_surname: "Janol",
   },
 ];
 

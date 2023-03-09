@@ -168,7 +168,7 @@ a {
   padding: 0 1rem;
   padding-left: 3.5rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 0.3rem;
   outline: none;
   background-color: #f3f3f4;
   color: #218d87;
@@ -183,6 +183,9 @@ a {
   border-color: #218d87;
   background-color: #fff;
   box-shadow: 0 0 0 4px rgba(33, 141, 135, 0.12);
+}
+.search__field::-webkit-search-cancel-button:hover {
+  cursor: pointer;
 }
 .search .icon {
   position: absolute;
@@ -235,11 +238,16 @@ a {
   border-top-color: white;
 }
 .dark .search__field {
-  background-color: rgba(33, 141, 135, 0.12);
+  background-color: #244947;
   color: white;
 }
 .dark .search__field:focus, .dark .search__field:hover {
   box-shadow: none;
+}
+.dark .search__field::-webkit-search-cancel-button {
+  color: white;
+  background: white;
+  fill: white;
 }
 .dark .icon {
   color: white;

@@ -41,9 +41,8 @@ const Header = () => {
   const toggleIsFavoriteExamination = useExaminationStore(
     (state) => state.toggleIsFavoriteExamination
   );
-  const getLabNameFromSample = useLaboratoryStore(
-    (state) => state.getLabNameFromSample
-  );
+
+  const getLabName = useLaboratoryStore((state) => state.getLabName);
 
   // Dark mode value and toggler
   const darkMode = usePatientsStore((state) => state.darkMode);
@@ -62,7 +61,7 @@ const Header = () => {
     } else if (pagePath.includes("tests/")) {
       setIsInLabPage(true);
 
-      setLabName(getLabNameFromSample(idToInteger));
+      setLabName(getLabName(idToInteger));
     } else {
       setIsInExamPage(false);
       setIsInLabPage(false);

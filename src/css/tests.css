@@ -88,8 +88,8 @@ a {
 
 .lab-test {
   width: 100%;
-  border: 1px solid #218d87;
-  border-radius: 0.3rem;
+  border-bottom: 1px solid #218d87;
+  border-radius: 0.2rem;
   background-color: white;
   padding: 0.5rem;
   display: flex;
@@ -97,6 +97,7 @@ a {
   align-items: center;
   gap: 0.8rem;
   transition: all 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 3px;
 }
 .lab-test:hover {
   cursor: pointer;
@@ -146,7 +147,7 @@ a {
   -moz-appearance: textfield;
 }
 .dark .lab-test {
-  background-color: #0e3b39;
+  background-color: rgba(33, 141, 135, 0.12);
   border-color: white;
 }
 .dark .lab-test:hover {

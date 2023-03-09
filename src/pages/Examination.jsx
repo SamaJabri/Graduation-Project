@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-
-import ExaminationInfo from "../components/examination/ExaminationInfo";
-import examinationInfo from "../store/examination/examinations-info.json";
-import examinations from "../store/examination/examinations";
-
 import { useParams } from "react-router-dom";
 
+import usePatientsStore from "../store/patient/patients-store";
+import {
+  examinationVariables,
+  getExaminationData,
+  examinations,
+} from "../assets/utility-functions";
+
+import ExaminationInfo from "../components/examination/ExaminationInfo";
 import Graph from "../components/examination/Graph";
 import Table from "../components/examination/Table";
-import usePatientsStore from "../store/patient/patients-store";
 
 const Examination = () => {
   const [viewType, setViewType] = useState("Graph");
@@ -23,20 +25,16 @@ const Examination = () => {
     (examination) => examination.id === Number(id)
   );
 
-  // Get JSON data related to examination
+  // Get data for table view
+  const examinationInfo = getExaminationData(examinations, examinationName);
+
+  // Get JSON data related to examination (about, low, & high values)
   const examinationData = examinationInfo.filter(
     (examination) =>
       examination.name.toUpperCase() === examinationName.toUpperCase()
   )[0];
 
-  // Examination data
-  const examination = examinations.filter(
-    ({ date, name }) =>
-      name.toUpperCase() === examinationName.toUpperCase() && { date, name }
-  );
-
-  // Extract what's important for graph showing
-  const graphData = examination.map(({ date, result }) => ({ date, result }));
+  examinationVariables(examinations);
 
   return (
     <div className="examination">
@@ -63,7 +61,7 @@ const Examination = () => {
       >
         {viewType === "Graph" ? (
           <Graph
-            data={graphData}
+            data={window[examinationName]}
             color={darkMode ? "white" : "#218d87"}
             leftMargin={-26}
           />
@@ -71,7 +69,7 @@ const Examination = () => {
           <Table
             rows={["Date", "Result", "Unit", "Reference Values"]}
             orderedRows={[0, 1]}
-            data={examination}
+            data={examinationInfo}
           />
         )}
       </div>

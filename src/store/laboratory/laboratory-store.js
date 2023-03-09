@@ -14,59 +14,74 @@ const useLaboratoryStore = create(
       samples_in_lab: INIT_SAMPLE_IN_LAB,
       laboratories: INIT_LABORATORIES,
 
-      myLabs: [] /* [
-        {
-          // Sample
-          sampleId: 0,
-          // Sample_in_lab
-          sampleInLabId: 0,
-          expertApprovalTime: "01/01/2022",
-          // Doctors
-          doctorName: "Dixie",
-          doctorSurname: "Naston",
-          // Laboratories
-          labName: "Hematology Laboratory",
-        },
-      ], */,
-
-      finalLabs: [],
-
+      // Get samples for currentPatient
       getSamples: (id) =>
-        set({
-          ...get(),
-          myLabs: get().samples.filter((sample) => sample.patient_id === id),
-        }),
+        get().samples.filter((sample) => sample.patient_id === id),
 
-      getSampleInLab: (id) =>
-        set((state) => {
-          const extraInfo = (myLab) =>
-            state.samples_in_lab.filter(
-              (sample) => sample.sample_id === myLab.id
-            );
+      // Get the sample_in_lab data (expert_approval_time & sample_in_lab_id)
+      getSampleInLab: (id) => {
+        const wantedIds = get()
+          .getSamples(id)
+          .map((lab) => lab.sample_id);
 
-          return {
-            finalLabs: state.myLabs.map((myLab) => extraInfo(myLab)),
-          };
-        }),
-
-      getLabNameFromSample: (id) => {
-        const labId = get().samples_in_lab.filter(
-          (sample) => sample.id === id
-        )[0].lab_id;
-
-        console.log("l", labId);
-        return get().laboratories.filter((lab) => lab.id === labId)[0].lab_name;
+        return get().samples_in_lab.filter((sample) =>
+          wantedIds.includes(sample.sample_id)
+        );
       },
 
-      /*  finzalizeMyLabData: (id) =>
-        set((state) => {
-          console.log(state.myLabs);
+      // Get Lab names for the samples_in_lab
+      getLabNameFromSample: (id) => {
+        const wantedIds = new Set(
+          get()
+            .getSampleInLab(id)
+            .map((lab) => lab.lab_id)
+        );
 
-          //state.getSamples(id);
+        const labs = get().laboratories.filter((lab) =>
+          wantedIds.has(lab.lab_id)
+        );
 
-          //state.getSampleInLab(id);
-          //console.log(state.myLabs);
-        }), */
+        return get()
+          .getSampleInLab(id)
+          .map((finalLab) => ({
+            ...finalLab,
+            ...labs.filter(
+              (lab) => lab.lab_id === finalLab.lab_id && lab.lab_name
+            )[0],
+          }));
+      },
+
+      // Get the doctor name
+      getDoctorIdFromSample: (id) =>
+        get()
+          .getLabNameFromSample(id)
+          .map((lab) => ({
+            ...lab,
+            ...get()
+              .getSamples(id)
+              .filter((sample) => sample.sample_id === lab.sample_id)[0],
+          })),
+
+      // Return the new array of objects with only the needed data to show in Tests Page
+      getFinalData: (id) =>
+        get()
+          .getDoctorIdFromSample(id)
+          .map((sample) => ({
+            ...sample,
+            ...get().doctors.filter(
+              (doctor) => doctor.doctor_id === sample.doctor_id
+            )[0],
+          })),
+
+      // Get lab name from sample_in_lab_id for the header in TestDetails Page
+      getLabName: (id) =>
+        get().laboratories.filter(
+          (lab) =>
+            lab.lab_id ===
+            get().samples_in_lab.filter(
+              (sample) => sample.sample_in_lab_id === id
+            )[0].lab_id
+        )[0].lab_name,
     }),
     { name: "laboratories" }
   )

@@ -3,36 +3,6 @@ import { devtools, persist } from "zustand/middleware";
 
 import INIT_EXAMINATIONS from "./examinations";
 
-const examinationStore = (set, get) => ({
-  examinations: INIT_EXAMINATIONS,
-
-  addExamination: (examination) => {
-    set((state) => ({
-      examinations: [examination, ...state.examinations],
-    }));
-  },
-
-  removeExmamination: (examId) => {
-    set((state) => ({
-      examinations: state.examinations.filter(
-        (examination) => examination.id !== examId
-      ),
-    }));
-  },
-
-  updateExamination: (examId, isFavorite) =>
-    set((state) => ({
-      examinations: state.examinations.map((examination) =>
-        examination.id === examId
-          ? {
-              ...examination,
-              isFavorite: isFavorite,
-            }
-          : examination
-      ),
-    })),
-});
-
 const useExaminationStore = create(
   persist(
     (set, get) => ({
@@ -52,22 +22,7 @@ const useExaminationStore = create(
         }));
       },
 
-      toggleIsFavoriteExamination: (examId) => {
-        console.log(examId);
-        console.log(
-          get().examinations.map((examination) => {
-            if (examination.id === examId) {
-              console.log("hi");
-
-              return {
-                ...examination,
-                isFavorite: !examination.isFavorite,
-              };
-            } else {
-              return examination;
-            }
-          })
-        );
+      toggleIsFavoriteExamination: (examId) =>
         set({
           examinations: get().examinations.map((examination) =>
             examination.id === examId
@@ -77,7 +32,15 @@ const useExaminationStore = create(
                 }
               : examination
           ),
-        });
+        }),
+
+      // Get currentPatientExaminations (Home page)
+      getCurrentPatientExaminations: (samples) => {
+        const wantedIds = samples.map((sample) => sample.sample_id);
+
+        return get().examinations.filter((examination) =>
+          wantedIds.includes(examination.sample_id)
+        );
       },
 
       // Get all examinations for a certain sample (TestDetails Page)

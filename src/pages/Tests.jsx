@@ -7,78 +7,14 @@ import useLaboratoryStore from "../store/laboratory/laboratory-store";
 import usePatientsStore from "../store/patient/patients-store";
 
 const Tests = () => {
-  const labs = [
-    {
-      sampleId: 0,
-      sampleInLabId: 0,
-      doctorName: "Dixie",
-      doctorSurname: "Naston",
-      expertApprovalTime: "01/01/2022",
-      labName: "Hematology Laboratory",
-    },
-    {
-      sampleId: 0,
-      sampleInLabId: 1,
-      doctorName: "Dixie",
-      doctorSurname: "Naston",
-      expertApprovalTime: "01/01/2022",
-      labName: "Hormon Laboratory",
-    },
-    {
-      sampleId: 0,
-      sampleInLabId: 2,
-      doctorName: "Dixie",
-      doctorSurname: "Naston",
-      expertApprovalTime: "01/01/2022",
-      labName: "Chemical Laboratory",
-    },
-    {
-      sampleId: 1,
-      sampleInLabId: 3,
-      doctorName: "Dixie",
-      doctorSurname: "Naston",
-      expertApprovalTime: "07/20/2022",
-      labName: "Hematology Laboratory",
-    },
-    {
-      sampleId: 1,
-      sampleInLabId: 4,
-      doctorName: "Dixie",
-      doctorSurname: "Naston",
-      expertApprovalTime: "07/20/2022",
-      labName: "Hormon Laboratory",
-    },
-    {
-      sampleId: 2,
-      sampleInLabId: 5,
-      doctorName: "Atacan",
-      doctorSurname: "Karlon",
-      expertApprovalTime: "01/02/2023",
-      labName: "Hematology Laboratory",
-    },
-    {
-      sampleId: 2,
-      sampleInLabId: 6,
-      doctorName: "Atacan",
-      doctorSurname: "Karlon",
-      expertApprovalTime: "01/02/2023",
-      labName: "Hormon Laboratory",
-    },
-  ];
-
+  // Store variables & functions
   const currentPatient = usePatientsStore((state) => state.currentPatient);
 
-  // Store variables & functions
-  const finalLabs = useLaboratoryStore((state) => state.finalLabs);
-  const getSamples = useLaboratoryStore((state) => state.getSamples);
-  const getSampleInLab = useLaboratoryStore((state) => state.getSampleInLab);
+  const getFinalData = useLaboratoryStore((state) => state.getFinalData);
 
-  useEffect(() => {
-    getSamples(currentPatient.id);
-    getSampleInLab(currentPatient.id);
-  }, []);
+  useEffect(() => setLabsList(getFinalData(currentPatient.id)), []);
 
-  const [labsList, setLabsList] = useState(labs);
+  const [labsList, setLabsList] = useState(getFinalData(currentPatient.id));
 
   const [yearFilter, setYearFilter] = useState("");
   const [monthFilter, setMonthFilter] = useState("");
@@ -140,28 +76,26 @@ const Tests = () => {
       <div className="labs__list">
         {labsList.map(
           ({
-            sampleInLabId,
-            doctorName,
-            doctorSurname,
-            expertApprovalTime,
-            labName,
+            sample_in_lab_id,
+            doctor_name,
+            doctor_surname,
+            expert_approval_time,
+            lab_name,
           }) => {
-            const toDate = new Date(expertApprovalTime).toDateString();
+            const toDate = new Date(expert_approval_time).toDateString();
 
             const month = toDate.split(" ")[1];
             const year = toDate.split(" ")[3];
 
             return (
-              <Link to={`/${sampleInLabId}`}>
-                <LabTest
-                  key={sampleInLabId}
-                  id={sampleInLabId}
-                  doctorName={`${doctorName} ${doctorSurname}`}
-                  labName={labName}
-                  month={month}
-                  year={year}
-                />
-              </Link>
+              <LabTest
+                key={sample_in_lab_id}
+                id={sample_in_lab_id}
+                doctorName={`${doctor_name} ${doctor_surname}`}
+                labName={lab_name}
+                month={month}
+                year={year}
+              />
             );
           }
         )}

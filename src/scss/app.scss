@@ -110,7 +110,7 @@
     padding: 0 1rem;
     padding-left: 3.5rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 0.3rem;
     outline: none;
     background-color: #f3f3f4;
     color: $color-primary;
@@ -127,6 +127,12 @@
       border-color: $color-primary;
       background-color: #fff;
       box-shadow: 0 0 0 4px $color-primary-disabled;
+    }
+
+    &::-webkit-search-cancel-button {
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
@@ -178,12 +184,18 @@
 
   .search {
     &__field {
-      background-color: $color-primary-disabled;
+      background-color: #244947;
       color: white;
 
       &:focus,
       &:hover {
         box-shadow: none;
+      }
+
+      &::-webkit-search-cancel-button {
+        color: white;
+        background: white;
+        fill: white;
       }
     }
   }
