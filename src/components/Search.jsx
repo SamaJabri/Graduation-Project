@@ -1,20 +1,30 @@
 import React, { useState } from "react";
-
-import { examinations } from "../assets/utility-functions";
+import { INIT_UNIQUE_EXAMINATIONS } from "../assets/utility-functions";
+import useExaminationStore from "../store/examination/examination-store";
 
 import Icon from "./Icon";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState("");
 
+  const getCurrentPatientExaminations = useExaminationStore(
+    (state) => state.getCurrentPatientExaminations
+  );
+
+  const [uniqueExaminations, setUniqueExamination] = useState(
+    INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations())
+  );
+
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
 
-    console.log(
-      examinations.filter((examination) =>
+    setUniqueExamination(
+      getCurrentPatientExaminations().filter((examination) =>
         examination.name.toLowerCase().includes(searchValue.toLowerCase())
       )
     );
+
+    console.log(uniqueExaminations);
   };
 
   return (

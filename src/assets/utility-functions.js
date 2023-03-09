@@ -1,6 +1,3 @@
-import useLaboratoryStore from "../store/laboratory/laboratory-store";
-import usePatientsStore from "../store/patient/patients-store";
-
 // Remove duplicate examinations for home bubbles view
 const INIT_UNIQUE_EXAMINATIONS = (examinations) =>
   Array.from(new Set(examinations.map((examination) => examination.name))).map(
@@ -48,23 +45,10 @@ const saveToCloudinary = (file, folderName, extraTasks) => {
     .catch((error) => alert("Sorry, an error occured:", error));
 };
 
-// Get data (examinations) related to single (logged in) patient
-// Used in Home, Favorites, and Examination pages
-const getCurrentPatientExaminations = useExaminationStore(
-  (state) => state.getCurrentPatientExaminations
-);
-const currentPatient = usePatientsStore((state) => state.currentPatient);
-const getSamples = useLaboratoryStore((state) => state.getSamples);
-
-const examinations = getCurrentPatientExaminations(
-  getSamples(currentPatient.id)
-);
-
 export {
   INIT_UNIQUE_EXAMINATIONS,
   getExaminationData,
   graphData,
   examinationVariables,
   saveToCloudinary,
-  examinations,
 };
