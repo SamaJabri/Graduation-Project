@@ -117,7 +117,7 @@ const INIT_EXAMINATIONS = [
     isFavorite: true,
   },
   {
-    id: 7,
+    id: 9,
     sample_id: 1,
     sample_in_lab_id: 3,
     name: "Ferritin",

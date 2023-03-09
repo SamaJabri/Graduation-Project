@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import usePatientsStore from "../store/patient/patients-store";
+import useExaminationStore from "../store/examination/examination-store";
 import {
   examinationVariables,
   getExaminationData,
-  examinations,
 } from "../assets/utility-functions";
 
 import ExaminationInfo from "../components/examination/ExaminationInfo";
@@ -19,14 +19,20 @@ const Examination = () => {
 
   // Get current mode to decide graph color
   const darkMode = usePatientsStore((state) => state.darkMode);
+  const getCurrentPatientExaminations = useExaminationStore(
+    (state) => state.getCurrentPatientExaminations
+  );
 
   // Get the name of examination from store
-  const [{ name: examinationName }] = examinations.filter(
+  const [{ name: examinationName }] = getCurrentPatientExaminations().filter(
     (examination) => examination.id === Number(id)
   );
 
   // Get data for table view
-  const examinationInfo = getExaminationData(examinations, examinationName);
+  const examinationInfo = getExaminationData(
+    getCurrentPatientExaminations(),
+    examinationName
+  );
 
   // Get JSON data related to examination (about, low, & high values)
   const examinationData = examinationInfo.filter(
@@ -34,7 +40,7 @@ const Examination = () => {
       examination.name.toUpperCase() === examinationName.toUpperCase()
   )[0];
 
-  examinationVariables(examinations);
+  examinationVariables(getCurrentPatientExaminations());
 
   return (
     <div className="examination">

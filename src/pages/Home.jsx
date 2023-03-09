@@ -1,31 +1,37 @@
 import React, { useState } from "react";
 
+import useExaminationStore from "../store/examination/examination-store";
 import {
   INIT_UNIQUE_EXAMINATIONS,
   examinationVariables,
-  examinations,
 } from "../assets/utility-functions";
 
 import ExaminationBubble from "../components/examination/ExaminationBubble";
 
 const Home = () => {
+  const getCurrentPatientExaminations = useExaminationStore(
+    (state) => state.getCurrentPatientExaminations
+  );
+
   // Patient will have multiple data for same examination.
   // Here will filter to show only one bubble with his data.
   const [uniqueExaminations, setUniqueExamination] = useState(
-    INIT_UNIQUE_EXAMINATIONS(examinations)
+    INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations())
   );
 
   const [viewType, setViewType] = useState("All");
 
   const showAllResults = () => {
     setViewType("All");
-    setUniqueExamination(INIT_UNIQUE_EXAMINATIONS(examinations));
+    setUniqueExamination(
+      INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations())
+    );
   };
 
   const showNormalResults = () => {
     setViewType("Normal");
     setUniqueExamination(() =>
-      INIT_UNIQUE_EXAMINATIONS(examinations).filter(
+      INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations()).filter(
         ({ result, starting_normal_range, ending_normal_range }) =>
           result >= starting_normal_range && result <= ending_normal_range
       )
@@ -35,14 +41,14 @@ const Home = () => {
   const showAbnormalResults = () => {
     setViewType("Abnormal");
     setUniqueExamination(() =>
-      INIT_UNIQUE_EXAMINATIONS(examinations).filter(
+      INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations()).filter(
         ({ result, starting_normal_range, ending_normal_range }) =>
           result < starting_normal_range || result > ending_normal_range
       )
     );
   };
 
-  examinationVariables(examinations);
+  examinationVariables(getCurrentPatientExaminations());
 
   return (
     <div className="home">

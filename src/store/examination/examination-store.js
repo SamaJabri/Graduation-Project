@@ -1,26 +1,32 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
+import { INIT_UNIQUE_EXAMINATIONS } from "../../assets/utility-functions";
+import useLaboratoryStore from "../laboratory/laboratory-store";
+import usePatientsStore from "../patient/patients-store";
 
 import INIT_EXAMINATIONS from "./examinations";
+
+// Get data (examinations) related to single (logged in) patient
+// Used in Home, Favorites, and Examination pages
+const currentPatient = usePatientsStore.getState().currentPatient;
+const getSamples = useLaboratoryStore.getState().getSamples;
 
 const useExaminationStore = create(
   persist(
     (set, get) => ({
       examinations: INIT_EXAMINATIONS,
 
-      addExamination: (examination) => {
+      addExamination: (examination) =>
         set((state) => ({
           examinations: [examination, ...state.examinations],
-        }));
-      },
+        })),
 
-      removeExamination: (examId) => {
+      removeExamination: (examId) =>
         set((state) => ({
           examinations: state.examinations.filter(
             (examination) => examination.id !== examId
           ),
-        }));
-      },
+        })),
 
       toggleIsFavoriteExamination: (examId) =>
         set({
@@ -35,8 +41,10 @@ const useExaminationStore = create(
         }),
 
       // Get currentPatientExaminations (Home page)
-      getCurrentPatientExaminations: (samples) => {
-        const wantedIds = samples.map((sample) => sample.sample_id);
+      getCurrentPatientExaminations: () => {
+        const wantedIds = getSamples(currentPatient.id).map(
+          (sample) => sample.sample_id
+        );
 
         return get().examinations.filter((examination) =>
           wantedIds.includes(examination.sample_id)
