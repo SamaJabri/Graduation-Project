@@ -6,11 +6,6 @@ import usePatientsStore from "../patient/patients-store";
 
 import INIT_EXAMINATIONS from "./examinations";
 
-// Get data (examinations) related to single (logged in) patient
-// Used in Home, Favorites, and Examination pages
-const currentPatient = usePatientsStore.getState().currentPatient;
-const getSamples = useLaboratoryStore.getState().getSamples;
-
 const useExaminationStore = create(
   persist(
     (set, get) => ({
@@ -41,10 +36,8 @@ const useExaminationStore = create(
         }),
 
       // Get currentPatientExaminations (Home page)
-      getCurrentPatientExaminations: () => {
-        const wantedIds = getSamples(currentPatient.id).map(
-          (sample) => sample.sample_id
-        );
+      getCurrentPatientExaminations: (samples) => {
+        const wantedIds = samples.map((sample) => sample.sample_id);
 
         return get().examinations.filter((examination) =>
           wantedIds.includes(examination.sample_id)
