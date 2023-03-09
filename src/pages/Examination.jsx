@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import usePatientsStore from "../store/patient/patients-store";
 import useExaminationStore from "../store/examination/examination-store";
+import useLaboratoryStore from "../store/laboratory/laboratory-store";
+import usePatientsStore from "../store/patient/patients-store";
 import {
   examinationVariables,
   getExaminationData,
@@ -19,18 +20,26 @@ const Examination = () => {
 
   // Get current mode to decide graph color
   const darkMode = usePatientsStore((state) => state.darkMode);
+
+  // Get data (examinations) related to single (logged in) patient
+  // Used in Home, Favorites, and Examination pages
+  const currentPatient = usePatientsStore((state) => state.currentPatient);
+  const getSamples = useLaboratoryStore((state) => state.getSamples);
+
   const getCurrentPatientExaminations = useExaminationStore(
     (state) => state.getCurrentPatientExaminations
   );
 
+  const samples = getSamples(currentPatient.id);
+
   // Get the name of examination from store
-  const [{ name: examinationName }] = getCurrentPatientExaminations().filter(
-    (examination) => examination.id === Number(id)
-  );
+  const [{ name: examinationName }] = getCurrentPatientExaminations(
+    samples
+  ).filter((examination) => examination.id === Number(id));
 
   // Get data for table view
   const examinationInfo = getExaminationData(
-    getCurrentPatientExaminations(),
+    getCurrentPatientExaminations(samples),
     examinationName
   );
 
@@ -40,7 +49,7 @@ const Examination = () => {
       examination.name.toUpperCase() === examinationName.toUpperCase()
   )[0];
 
-  examinationVariables(getCurrentPatientExaminations());
+  examinationVariables(getCurrentPatientExaminations(samples));
 
   return (
     <div className="examination">

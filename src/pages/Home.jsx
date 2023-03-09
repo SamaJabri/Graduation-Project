@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import useExaminationStore from "../store/examination/examination-store";
+import useLaboratoryStore from "../store/laboratory/laboratory-store";
+import usePatientsStore from "../store/patient/patients-store";
 import {
   INIT_UNIQUE_EXAMINATIONS,
   examinationVariables,
@@ -9,14 +11,21 @@ import {
 import ExaminationBubble from "../components/examination/ExaminationBubble";
 
 const Home = () => {
+  // Get data (examinations) related to single (logged in) patient
+  // Used in Home, Favorites, and Examination pages
+  const currentPatient = usePatientsStore((state) => state.currentPatient);
+  const getSamples = useLaboratoryStore((state) => state.getSamples);
+
   const getCurrentPatientExaminations = useExaminationStore(
     (state) => state.getCurrentPatientExaminations
   );
 
+  const samples = getSamples(currentPatient.id);
+
   // Patient will have multiple data for same examination.
   // Here will filter to show only one bubble with his data.
   const [uniqueExaminations, setUniqueExamination] = useState(
-    INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations())
+    INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations(samples))
   );
 
   const [viewType, setViewType] = useState("All");
@@ -24,14 +33,14 @@ const Home = () => {
   const showAllResults = () => {
     setViewType("All");
     setUniqueExamination(
-      INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations())
+      INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations(samples))
     );
   };
 
   const showNormalResults = () => {
     setViewType("Normal");
     setUniqueExamination(() =>
-      INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations()).filter(
+      INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations(samples)).filter(
         ({ result, starting_normal_range, ending_normal_range }) =>
           result >= starting_normal_range && result <= ending_normal_range
       )
@@ -41,14 +50,14 @@ const Home = () => {
   const showAbnormalResults = () => {
     setViewType("Abnormal");
     setUniqueExamination(() =>
-      INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations()).filter(
+      INIT_UNIQUE_EXAMINATIONS(getCurrentPatientExaminations(samples)).filter(
         ({ result, starting_normal_range, ending_normal_range }) =>
           result < starting_normal_range || result > ending_normal_range
       )
     );
   };
 
-  examinationVariables(getCurrentPatientExaminations());
+  examinationVariables(getCurrentPatientExaminations(samples));
 
   return (
     <div className="home">
