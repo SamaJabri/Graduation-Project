@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import Logo from "../../assets/Logo.svg";
 import LogoDarkMode from "../../assets/LogoDarkMode.svg";
@@ -19,14 +19,14 @@ const Header = () => {
   // Cast id from String to Int for comparison
   const idToInteger = parseInt(id);
 
-  const pagePath = String(window.location.pathname);
+  const { pathname } = useLocation();
 
   const [isInExamPage, setIsInExamPage] = useState(
-    pagePath.includes("examination") ? true : false
+    pathname.includes("examination") ? true : false
   );
 
   const [isInLabPage, setIsInLabPage] = useState(
-    pagePath.includes("tests/") ? true : false
+    pathname.includes("tests/") ? true : false
   );
 
   // Info needed in header
@@ -49,7 +49,7 @@ const Header = () => {
   const toggleDarkMode = usePatientsStore((state) => state.toggleDarkMode);
 
   useEffect(() => {
-    if (pagePath.includes("examination")) {
+    if (pathname.includes("examination")) {
       setIsInExamPage(true);
 
       const [{ name, isFavorite }] = examinations.filter(
@@ -58,7 +58,7 @@ const Header = () => {
 
       setIsExamFavorite(isFavorite);
       setExaminationName(name);
-    } else if (pagePath.includes("tests/")) {
+    } else if (pathname.includes("tests/")) {
       setIsInLabPage(true);
 
       setLabName(getLabName(idToInteger));
