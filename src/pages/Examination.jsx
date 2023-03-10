@@ -2,44 +2,37 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import useExaminationStore from "../store/examination/examination-store";
-import useLaboratoryStore from "../store/laboratory/laboratory-store";
 import usePatientsStore from "../store/patient/patients-store";
 import {
   examinationVariables,
   getExaminationData,
 } from "../assets/utility-functions";
+import examinationInfo from "../store/examination/examinations-info.json";
 
 import ExaminationInfo from "../components/examination/ExaminationInfo";
 import Graph from "../components/examination/Graph";
 import Table from "../components/examination/Table";
 
 const Examination = () => {
-  const [viewType, setViewType] = useState("Graph");
-
   const { id } = useParams();
+
+  const [viewType, setViewType] = useState("Graph");
 
   // Get current mode to decide graph color
   const darkMode = usePatientsStore((state) => state.darkMode);
-
-  // Get data (examinations) related to single (logged in) patient
-  // Used in Home, Favorites, and Examination pages
-  const currentPatient = usePatientsStore((state) => state.currentPatient);
-  const getSamples = useLaboratoryStore((state) => state.getSamples);
 
   const getCurrentPatientExaminations = useExaminationStore(
     (state) => state.getCurrentPatientExaminations
   );
 
-  const samples = getSamples(currentPatient.id);
-
   // Get the name of examination from store
-  const [{ name: examinationName }] = getCurrentPatientExaminations(
-    samples
-  ).filter((examination) => examination.id === Number(id));
+  const [{ name: examinationName }] = getCurrentPatientExaminations().filter(
+    (examination) => examination.id === Number(id)
+  );
 
   // Get data for table view
-  const examinationInfo = getExaminationData(
-    getCurrentPatientExaminations(samples),
+  const tableViewInfo = getExaminationData(
+    getCurrentPatientExaminations(),
     examinationName
   );
 
@@ -49,7 +42,7 @@ const Examination = () => {
       examination.name.toUpperCase() === examinationName.toUpperCase()
   )[0];
 
-  examinationVariables(getCurrentPatientExaminations(samples));
+  examinationVariables(getCurrentPatientExaminations());
 
   return (
     <div className="examination">
@@ -84,7 +77,7 @@ const Examination = () => {
           <Table
             rows={["Date", "Result", "Unit", "Reference Values"]}
             orderedRows={[0, 1]}
-            data={examinationInfo}
+            data={tableViewInfo}
           />
         )}
       </div>

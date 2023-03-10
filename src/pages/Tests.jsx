@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
+import useLaboratoryStore from "../store/laboratory/laboratory-store";
 
 import LabTest from "../components/LabTest";
 
-import useLaboratoryStore from "../store/laboratory/laboratory-store";
-import usePatientsStore from "../store/patient/patients-store";
-
 const Tests = () => {
   // Store variables & functions
-  const currentPatient = usePatientsStore((state) => state.currentPatient);
-
   const getFinalData = useLaboratoryStore((state) => state.getFinalData);
-
-  useEffect(() => setLabsList(getFinalData(currentPatient.id)), []);
-
-  const [labsList, setLabsList] = useState(getFinalData(currentPatient.id));
+  const patientsLabs = useLaboratoryStore((state) => state.patientsLabs);
+  const handleFilter = useLaboratoryStore((state) => state.handleFilter);
 
   const [yearFilter, setYearFilter] = useState("");
   const [monthFilter, setMonthFilter] = useState("");
@@ -26,7 +20,7 @@ const Tests = () => {
 
     setMonthFilter(month);
 
-    handleFilterAndSetList(selectedMonth, yearFilter, selectedMonth);
+    handleFilter(selectedMonth, yearFilter, selectedMonth);
   };
 
   // Selected year converted to String for comparison
@@ -36,22 +30,10 @@ const Tests = () => {
 
     setYearFilter(year);
 
-    handleFilterAndSetList(selectedYear, selectedYear, monthFilter);
+    handleFilter(selectedYear, selectedYear, monthFilter);
   };
 
-  // Filter list and set the view to the new filtered one
-  // Written to reduse code redundancy
-  const handleFilterAndSetList = (mainFilter, year, month) => {
-    setLabsList(
-      mainFilter
-        ? labs.filter(
-            ({ expertApprovalTime }) =>
-              expertApprovalTime.split("/")[2].includes(year) &&
-              expertApprovalTime.split("/")[0].includes(month)
-          )
-        : labs
-    );
-  };
+  useEffect(() => getFinalData(), []);
 
   return (
     <div className="labs">
@@ -74,7 +56,7 @@ const Tests = () => {
       </div>
 
       <div className="labs__list">
-        {labsList.map(
+        {patientsLabs.map(
           ({
             sample_in_lab_id,
             doctor_name,
